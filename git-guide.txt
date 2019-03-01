@@ -9,3 +9,29 @@
 这个时候，Git知道你删除了文件，因此，工作区和版本库就不一致了，git status命令会立刻告诉你哪些文件被删除了：
 	现在你有两个选择，一是确实要从版本中删除改文件，那就用命令git rm test.txt 删掉，并且git commit:
 现在，文件就从版本库中被删除了。
+	在几次遇到这个错误
+To gitee.com:git_zn/jl.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'git@gitee.com:git_zn/jl.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+在做出:git push origin(gitee,(guthub)) master
+时，出现的错误，第一次时用的命令重置github使得笔记被clean了
+下面是在网上找的解决办法
+在当前本地仓库下用git bash输入下面命令
+git pull gitee master --allow-unrelated-histories
+此时会有一个弹窗，提示你修改一个文档的内容，不用管它，按ESC键
+再按SHIFT+; (SHIFT+;用来输入一个冒号)再输入wq保存
+:wq
+接下来git会把远程仓库再pull一次
+看到：
+Already up to date!
+Merge made by the 'recursive' strategy.
+这个提示表明pull完成
+再试试用
+	git push gitee master
+
+ok!
