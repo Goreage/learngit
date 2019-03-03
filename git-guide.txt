@@ -35,3 +35,12 @@ Merge made by the 'recursive' strategy.
 	git push gitee master
 
 ok!
+
+	在做一个另一个项目需要重新创建，引用廖雪峰的源码
+mkdir learngit
+cd learngit
+pwd
+显示项目产生的文件地址
+	第二步，通过git init 命令把这个目录变成可以管理的仓库
+git init
+接着就可以常规操作了。
