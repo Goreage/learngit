@@ -95,3 +95,130 @@ int[][] a= {
 每行一个{}，逗号分隔
 最后的逗号可以存在，有古老的传统
 如果省略，表示补零
+
+字符类型
+单个的字符是一种特殊的类型:char
+用单引号表示的字符字面量:'a','1'
+Java使用Unicode来表示字符，可以表达包括汉字在内的多种文字
+	大小写转换
+字母和数字在Unicod表中是顺序排列的
+'0', '1'...'9'
+
+逃逸字符
+用来表达无法印出来的控制字符或特殊字符，它由一个反斜杠"\"开头，后面跟上另一个字符，这两个字符和起来，组成了一个字符。
+
+包裹类型
+每种基础类型都有对应的包裹类型
+	基础类型			包裹类型
+	boolean			Boolean
+	char			Character
+	int			Integer
+	double			Double
+可以用包裹类型可以用来定义变量
+
+包裹类型的用处
+获得该类型的最大最小值
+Integer.MIN_VALUE
+Integer.MAX_VALUE
+
+.运算符
+当需要让一个类或对象做事情的事情，用运算符
+a.length
+Integer.MAX_VALUE
+
+Character
+static boolean isDigit(char ch)
+判断这个字符是不是数字
+static boolean isLetter(char ch)
+判断这个字符是不是字母
+static boolean is  LetterOriDigit(char ch)
+判断这个字符是不是字母或数字
+static boolean isLowerCase(char ch)
+判断这个字符是不是小写字母
+static boolean isUpperCase(char ch)
+判断这个字符是不是大写字母
+
+static boolean isWhitespace(char ch)
+判断这个字符是不是空格
+static char toLowerCase(char ch)
+把这个字符装换成小写
+static char toUpperCase(char ch)
+把这个字符转化成大写
+Math
+abs
+pow
+random
+round
+
+字符串变量
+String s;
+String是一个类，String的变量是对象的管理者而非所有者
+就像数组变量是数组的管理者而非所有者一样
+
+ new = 创建
+	String s = new String("a string");
+	创建了一个String的对象
+	用"a string"初始化这个对象
+	创建管理这个对象的变量s
+	让s管理这个对象
+初始化字符串变量
+String s = "hello";
+编译器帮你创建一个Stirng类的对象交给s来管理
+
+字符串连接
+用加号(+)连接
+
+输入字符串
+in.next();读入一个单词，单词的标志是空格
+空格包括空格，tab和换行
+in.nextLine();读入一整行
+
+比较两个String
+if ( input == "bye"){	//比较是否同一个
+	...
+}
+if ( input.equals("bye")) {	//比较内容是否相同
+	...
+}
+Strings应该用.equals来比较
+
+	字符串操作
+字符串是对象，对它的所有操作都是通过“.”这个运算符来进行的
+字符串.操作
+它表示对左边的这个字符串做右边的那个操作
+这里的字符串可以是变量也可以是常量
+
+Strings大小的比较
+两个字符串可以比较大小：
+		s1.compareTo(s2)
+如果s1比s2小，那么结果是负的；如果s1和s2相等,那么结果是0；如果s1比
+s2大，那么结果是正的
+compareToIgnoreCase可以区分大小写地来比较大小
+
+获得String的长度
+用length()函数， 和数组的length的不一样，
+
+访问String里的字符
+s.charAt(index)
+	返回在index上的单个字符
+	index的范围是0到length()-1
+	第一个字符的index是0，和数组一样
+但是不能用for-each循环来遍历字符串
+
+	得到子串
+s.substring(n)
+得到从n号位置到末尾的全部内容
+s.substring(b,e)
+得到从b号位置到e号位置之前的内容
+
+	寻找字符
+s.indexOf(c)
+得到c字符所在的位置，-1表示不存在
+s.indexOf(c,n)
+从n号位置开始寻找c字符
+s.indexOf(t)
+找到字符串t所在的位置
+从右边开始找
+s.lastIndexOf(c)
+s.lastIndexOf(c,n)
+s.lastIndezOf(t)
