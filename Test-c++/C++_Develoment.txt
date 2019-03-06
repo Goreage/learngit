@@ -1,0 +1,26 @@
+scanf(...)表达式的值
+scanf(...)表达式的值为int,表示成功读入的变量个数
+	int n,m;
+	printf("%d",scanf("%d%d",&n,&m));
+scanf(...)值为EOF（即-1）则说明输入数据已经结束
+	int n,m;
+	while(scanf("%d%d",&n,&m) != EOF){ //EOF是直接能拿来用的符号常量
+	printf("%d",n+m);
+}
+	不停输入两个整数再敲回车，则不停输出它们的和。直到输入Window系统下，Ctrl+Z然后，程序结束
+也可以：
+	int n,m;
+	while(scanf("%d%d",&n,&m) == 2){
+		printf("%d",n+m);
+	} 
+cin表达式的值
+cin>>m>>n...表达式的值，在成功读入所有变量时为true，否则为false
+	int n,m;
+	while(cin >> n >> m){
+		printf("%d",n+m);
+	}
+
+用freopen重定向输入
+调试程序时，每次运行程序都要输入测试数据，太麻烦了，
+可以将测试数据存入文件，然后用freopen将输入由键盘重定向为文件
+，则运行程序时不再需要输入数据
