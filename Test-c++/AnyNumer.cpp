@@ -1,12 +1,13 @@
 #include<iostream>
 using namespace std;
 int main(){
-		int n,mx;
-		cin >> mx;
+		int n,mx=0;
 		while(cin >> n){
 			if( n > mx )
 				mx = n;
 		}
-		cout<<mx<<endl;
+		printf("%d",mx);
 		return 0;	
 }
+
+//求一串数字的最大值OJ题 
