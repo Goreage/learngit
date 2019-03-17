@@ -229,3 +229,34 @@ C program\0
 	而'\'字符在字符串中出现时。须连写两次，变成'\\'。例如：
 		cout << "He said: \"I am a stu\\dent."";
 	=>>He said: "I am a student."
+
+字符串程序实例
+	title [0] = 't';
+	title [3] = 0;	//等效于 title [3] = '\0';
+	cout << title << endl;
+	return 0;
+}
+用scanf可以读入字符串
+用scanf可以将字符串读入字符数组
+scanf会自动添加结尾的'\0'
+scanf读入到空格为止 cin读到'\0'为止
+
+char line[100];
+scanf("%s",line);	//注意不是$line 因为读的不是变量
+printf("%s",line);
+
+读入一行到字符串数组
+cin.getLine(char buf[], int bufSize);
+读入一行（行长度不超过bufSize-1）或bufSize-1个字符到buf，自动添加'\0'
+回车换行符不会写入buf，但是会从输入流中去掉
+buf[] 存放数组的字节 bufSize防止数组越界
+
+char line[10];
+cin.getLine(line ,bufSize(line));
+//或 cin.getLine(line ,bufSize(10));读入最多9个字符到line
+cout << line;
+A b c /n回车不会读入 
+A b c
+
+A b c1234567\n回车不会读入
+A b c1234
