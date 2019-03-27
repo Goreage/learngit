@@ -1,0 +1,21 @@
+%I=imread('98.jpg');
+I=rgb2gray(imread('98.jpg'));
+%rgb2gray是matlab内部一种处理图像的函数，通过消除图像色调
+%和饱和度信息同时保留亮度实现将RGB图像或彩色图像转化为灰度图
+subplot(1,2,1)
+imshow(I);
+%是用来显示图片
+title('原图');
+[r,c]=size(I);                     
+dst=zeros(r,c);                   
+for i=1:r
+    for j=1:c
+        x=i;                       
+        y=c-j+1;                   
+        dst(x,y)=I(i,j);
+    end
+end
+subplot(1,2,2);
+imshow(uint8(dst));     
+%matlab为图像提供了特殊的数据uint8(8位无符号整数)，以节省存储空间
+title('水平镜像变换后的图片');

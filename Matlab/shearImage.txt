@@ -1,0 +1,32 @@
+im=(imread('98.jpg'));
+im1=rgb2gray(im);
+subplot(131)
+imshow(im1);
+title('原图');
+[row,col]=size(im1); %获取行数 和 列数
+ 
+%图像的水平错切
+G=zeros(row,col);
+a=pi/6; %水平错切30度
+b=tan(a);
+for m=1:row
+for n=1:col
+G(round(m+b*n),n)=im1(m,n);
+end
+end
+subplot(132);
+imshow(uint8(G));
+title('图片的水平错切');
+
+%图像的垂直错切
+G=zeros(row,col);
+a=pi/6; %水平错切30度
+b=tan(a);
+for m=1:row
+for n=1:col
+G(n,round(m+b*n))=im1(m,n);
+end
+end
+subplot(133);
+imshow(uint8(G));
+title('图片的垂直错切');

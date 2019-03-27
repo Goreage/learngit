@@ -1,0 +1,31 @@
+im = imread('98.jpg');
+subplot(1,2,1);
+imshow(im);
+title('原图');
+a = 30 / 180 * pi;
+R = [cos(a), -sin(a); sin(a), cos(a)];
+R = R';
+sz = size(im);
+h = sz(1);
+w = sz(2);
+ch = sz(3);
+c1 = [h; w] / 2;
+hh = floor(w*sin(a)+h*cos(a))+1;
+ww = floor(w*cos(a)+h*sin(a))+1;
+c2 = [hh; ww] / 2;
+im2 = uint8(ones(hh, ww, 3)*128);
+%matlab为图像提供了特殊的数据uint8(8位无符号整数)，以节省存储空间
+for k = 1:ch
+    for i = 1:hh
+       for j = 1:ww
+          p = [i; j];
+          pp = round(R*(p-c2)+c1);
+          if (pp(1) >= 1 && pp(1) <= h && pp(2) >= 1 && pp(2) <= w)
+             im2(i, j, k) = im(pp(1), pp(2), k); 
+          end
+       end
+    end
+end
+subplot(1,2,2);
+imshow(im2);
+title('图片翻转30度');
