@@ -1,0 +1,20 @@
+SSM重点知识
+SpringMVC:DispatcherServlet:主要用来生成相应的拦截，在将它发送到客户端
+去。了解具体的调用步骤。
+Spring:IOC和AOP:在Spring中通过依赖注入，有容器将定向的容器在系统运行时对关系控制AOP在程序运行过程中
+动态的将权限代码注入到当中，实现方式是动态代理，由jdk
+MyBatis:ORM，通过使用描述对象
+
+Logback日志配置
+做troubleshooting
+显示程序运行状态
+
+Logback的主要模块
+logback-access
+logbak-classic:可以很方便的使用logforja
+logback-core-为前两个提供基础
+
+logback的主要标签
+logger
+appender
+layout 格式化命令输出
