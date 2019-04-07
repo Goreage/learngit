@@ -1,0 +1,18 @@
+﻿HTML        WXML
+CSS         WXSS
+app.js      小程序入口程序
+app.WXSS    全局样式文件
+app.json    全局配置文件
+
+
+JavaScript
+		   属性							说明
+		longitude					中心经度
+		latitude					中心纬度
+		scale						缩放级别，取值范围为5-18
+		markers						标记点
+		controls					控件
+		show-location				显示带有方向的当前定位点
+		bindcontroltap				点击控件时触发
+		bindreginchange				视野发生变化时触发
+		
