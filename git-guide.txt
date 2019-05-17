@@ -18,7 +18,7 @@ hint: not have locally. This is usually caused by another repository pushing
 hint: to the same ref. You may want to first integrate the remote changes
 hint: (e.g., 'git pull ...') before pushing again.
 hint: See the 'Note about fast-forwards' in 'git push --help' for details.
-在做出:git push origin(gitee,(guthub)) master
+在做出:git push origin(gitee,(github)) master
 时，出现的错误，第一次时用的命令重置github使得笔记被clean了
 下面是在网上找的解决办法
 在当前本地仓库下用git bash输入下面命令

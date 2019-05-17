@@ -487,4 +487,155 @@ a是编译时其值就确定了的常量，不能够对a进行赋值
 			char szValue[20];
 			itoa(27,szValue,10);	//使得szValue的内容变为"27"
 			itoa(27,szValue,16);	//使得szValue的内容变为"1b"
+		void指针：
+				void *p;
+		可以用任何类型的指针对void指针进行赋值或初始化：
+		double d = 1.54;
+		void * p = & d;
+		void * p pl;
+		pl = &d;
+		因sizeof(void)没有定义，所以对于void*类型的指针p,
+		*p 无定义
 		
+		内存操作库函数memset
+		
+		头文件cstring中声明：
+		void * memset(void * dest,int ch, int n);
+		将从dest开始的n个字节，都设置成ch。返回值是dest. ch只有最低的字节其作用。
+		例：将szName的前10个字符，都设置成'a':
+		char szName[200] = "";
+		memset( szName, 'a',10);
+		cout << szName << endl;
+		=>> aaaaaaaaaa
+		
+		用memset函数将数组内容全部设置成0:
+		int a[100];
+		memset(a,0,sizeof(a));
+		则数组a的每个元素都变成0
+		
+		内存操作库函数memcpy
+		头文件cstring中声明：
+		void * memcpy(void * dest, void * src, int n);
+		将地址src开始的n个字节，拷贝到地址dest。 返回值dest。
+		
+		将数组a1的内容拷贝到数组a2中去，结果是a2[0] = a1[0], a2[1] = a1[1]....a2[9];
+		
+		int a1[10];
+		int a2[10];
+		memcpy(a2, a1, 10*sizeof(int));
+		
+		如何编写内存操作库函数memcpy
+		void * MyMemcpy( void * dest, const void * src, int n){
+			char * pDest = (char * )dest;	//使用强制类型转换将void类型的指针
+			char * pSrc = (char * )src;		//转换为char类型的指针
+			for (int i=0; i<n; ++i){
+			//逐个字节拷贝源块的内容到目的块
+					*(pDest + i) = *( pSrc +i ); 
+			}
+			return dest;
+		}
+		在源区域和目标区域如果有重叠，这个memcpy就不正确。
+		
+		函数指针
+			基本概念程序运行期间，每个函数都会占用一段连续的内存空间。而函数名
+		就是该函数所占内存区域的起始地址（也称“入口地址”）。我们可以将函数的入口地址赋给
+		一个指针变量，使该指针变量指向该函数。然后通过指针变量就可以调用这个函数。这种指
+		向函数指针变量称为“函数指针”。
+
+		定义形式
+		类型名（*指针变量名）(参数类型1，参数类型2...);
+		例如：
+		int (*pf)(int char);
+		
+		表示pf是一个函数指针，它所指向的函数，返回值类型应是int,该函数应有两个参数，第一个是
+		int类型，第二个是char类型。
+		
+		使用方法
+		可以用一个原型匹配的函数的名字给一个函数指针赋值。
+		要通过函数指针调用它所指向的函数，写法为：
+			函数指针名（实参表）;
+			
+		函数指针和qsort库函数
+		C语言快速排序库函数：
+		void qsort(void *base,int nelem, unsing int width,
+		int (*pfCompare)(const void*, const void*));
+		可以对任意类型的数组进行排序
+		
+		对数组排序，需要知道
+		1）数组起始地址
+		2）数组元素的个数
+		3）每个元素的大小（由此可以算出每个元素的地址）
+		4）元素谁在前谁在后的规则
+		pfCompare:函数指针，它指向一个“比较函数”。该比较函数应为以下形式：
+		int 函数名（const void*eleml, const void * elem2）;
+		比较函数编写规则：
+		1）如果* elem1应该排在 *elem2前面，则函数返回值是负整数
+		2）如果*eleml和*elem2哪个排在前面都行，那行函数返回0
+		3）如果 *elem1应该排在*elem2后面，则函数返回值是正整数
+		比较函数是程序员自己编写的
+		
+		函数指针和qsort库函数
+		排序就是一个不断比较并交换位置的过程。
+		qsort函数在执行期间，会通过pfCompare指针调用“比较函数”，调用时将要比较的两个元素
+		的地址传给“比较函数”，然后根据“比较函数”返回值判断两个元素哪个更应该排在前面。
+		
+		结构（Struct）
+		在现实问题中，常常需要用不同类型的数据描述一个事物。比如一个工人的姓名，性别，年龄，工资，电话...
+		如果编程时要用多个不同类型来描述一个事物，就很麻烦。当然希望只用一个变量就能代表一个”学生“
+		这样的事物。
+		
+		c++只允许程序员自己定义新的数据类型。因此针对“学生”这种事物，可以定义一种新名为Student的数据类型
+		的变量就能描述一个学生的全部信息。同理，还可以定义数据类型。Worker以表示工人。
+		
+		用“struct”关键字来定义一个“结构”,也就定义一个新的数据类型：
+		struct 结构名
+		{
+				类型名 成员变量名；
+				类型名 成员变量名；
+				类型名 成员变量名；
+				......
+		};
+		Struct Student{
+				unsigned ID;
+				char szName[20];
+				float fGPA;
+		};
+		Student即成为自定义类型的名字，可以用来定义变量
+		student s1,s2;
+		例连个同类型的结构变量，可以互相赋值。但是结构变量之间用“==”，
+		“！=”， “<”, ">", ">="进行比较运算。
+		一般来说，一个结构变量所占的内存空间的大小，就是结构中所有成员变量大小之和。结构变量中的
+		各个成员变量在内存中一般是连续存放的。
+		4字节			20字节				4字节		
+			ID 			sxName				fGPA
+			
+		一个结构的成员变量可以是任何类型的，包括可以是一个结构类型
+		struct Date{
+			int year;
+			int month;
+			int day;
+		};
+		struct StudentEx{
+			unsigned ID;
+			char sxName[20];
+			float fGPA;
+			Date birthday;			
+		};
+		结构的成员变量可以是指向本结构类型的变量指针
+		struct Employee{
+			string name;
+			int age;
+			int salary;
+			Employee *next;
+		}
+		访问结构变量的成员变量
+		一个结构变量的成员变量，可以完全和一个普通变量一样来使用，也可以取得其地址。
+		使用形式：
+			结构变量名。成员变量名
+			
+			StudentEx stu;
+			cin >> stu.fGPA;
+			stu.ID = 12345;
+			strcpy(stu.sxName, "Tom");
+			cout << stu.fGPA;
+			

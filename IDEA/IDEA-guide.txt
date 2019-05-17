@@ -1,14 +1,15 @@
-ÏîÄ¿Ö®¼äµÄÌø×ª Ctrl+Alt+]	ÏòÇ°Ìø×ª
-Ctrl+Alt+[	ÏòºóÌø×ª
-ÀàÖ®¼äµÄÌø×ª	Ctrl+Shift+A
-	¼ÓÉÏrecent file 	  Ctrl+EÕÒµ½×î½üÎÄ¼ş
-ä¯ÀÀĞŞ¸ÄÎ»ÖÃÌø×ª£º Ctrl+Shift+Backspace
+é¡¹ç›®ä¹‹é—´çš„è·³è½¬ Ctrl+Alt+]	å‘å‰è·³è½¬
+Ctrl+Alt+[	å‘åè·³è½¬
+ç±»ä¹‹é—´çš„è·³è½¬	Ctrl+Shift+A
+	åŠ ä¸Šrecent file 	  Ctrl+Eæ‰¾åˆ°æœ€è¿‘æ–‡ä»¶
+æµè§ˆä¿®æ”¹ä½ç½®è·³è½¬ï¼š Ctrl+Shift+Backspace
 		
-ÊÕ²Ø
+æ”¶è—
 
-±à¼­ÇøºÍÎÄ¼şÇø£ºCtrl+Êı
-	¸ßĞ§ËÑËØÀà£ºCtrl+N
-	ÎÄ¼ş£ºÆäËûµÄ.classÎÄ¼ş
-	·ûºÅ£ºº¯Êı£ºShift+Ctrl+Alt+N
+ç¼–è¾‘åŒºå’Œæ–‡ä»¶åŒºï¼šCtrl+æ•°
+	é«˜æ•ˆæœç´ ç±»ï¼šCtrl+N
+	æ–‡ä»¶ï¼šå…¶ä»–çš„.classæ–‡ä»¶
+	ç¬¦å·ï¼šå‡½æ•°ï¼šShift+Ctrl+Alt+N
 findpath :Ctrl+Shift+F
 
+  
