@@ -1,0 +1,255 @@
+    JDBC简介
+二，使用详情
+    1.JDBC常用接口
+    2.JDBC编程步骤
+    3.执行SQL语句
+    4.管理结果集
+    5.事物管理
+ 三 。高级应用
+    1.分页
+    2.高级查询
+    3.高级函数使用
+
+    JDBC全称为Java Data Base ConnerCtivity(java数据连接)
+    可以为多种数据库提供统一的访问
+    体现了Java“编写一次，处处运行”的高大上精神
+
+    明确目的：需求（做什么）
+    
+    JDBC使用详情
+    2.JDBC编程步骤
+    加载驱动程序： Class.forName(driverClass)
+    加载Mysql驱动：Class.forName("com.mysql.jdbc.Driver");
+    加载Oracle驱动：ClassForName("oracle.jdbc.driver.OracleDriver")
+
+    获得数据库连接：
+    DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/imooc","root","root");
+
+    创建Statement对象:com.createStament();
+    添加一个folder,为lib文件
+    将mysql-connector-java复制到lib文件中，然后添加路径Build Path
+	
+	private static final String URL="jdbc:mysql://127.0.0.1:3306/mooc";
+	private static final String USER="root";
+	private static final String PASSWORD="16a19961029";
+	public static void main(String[] args) throws Exception{
+		
+		//定义数据库名，和用户以及密码
+		//加载驱动程序 通过反射
+		Class.forName("com.mysql.jdbc.Driver");
+		//2.获取数据库的连接
+		Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		//通过数据库的连接操作数据库，实现增删改查
+		Statement stmt=conn.createStatement();
+		ResultSet rs=stmt.executeQuery("select user_name,age from mooc_goddess");
+		
+		while(rs.next()) {
+			System.out.println(rs.getString("user_name")+","+rs.getInt("age"));
+    3祥设
+		采用MVC三层架构
+		View(视图层)	：数据的展示
+		Control(控制层)	数据的流通过程
+		Model(模型层) : 对数据库的映射如增删改查
+			DB(数据库)
+				<---		Controller  <----
+				|			|		|		|
+				|			|		|		|
+				Model--->			--->	View
+		构建，模型层
+		
+		创建一个类将数据库中的变量依次创建，
+		创建一个Dao方法，在DBUtil中定义一个（静态块）static 加载驱动程序。程序在开始的时候首先执行。
+		将这个驱动导出来，然后通过在其他地方引用就ok了。
+		public static void main(String[] args) throws Exception{
+		
+		//定义数据库名，和用户以及密码
+		//1.加载驱动程序 通过反射
+		Class.forName("com.mysql.jdbc.Driver");
+		//2.获取数据库的连接
+		Connection conn = DriverManager.getConnection(URL, USER, PASSWORD);
+		//通过数据库的连接操作数据库，实现增删改查
+		Statement stmt=conn.createStatement();
+		ResultSet rs=stmt.executeQuery("select user_name,age from mooc_goddess");
+		
+		while(rs.next()) {
+			System.out.println(rs.getString("user_name")+","+rs.getInt("age"));
+		}
+	}初始代码
+	在GodessAction中测试GoddessDao中的qury是否可用
+	GoddessDao g=new GoddessDao();
+		
+		List<Goddess> gs=g.query();
+		
+		for (Goddess goddess : gs) {
+			System.out.println(goddess.getUser_name()+","+goddess.getAge());
+		}
+		
+		java.util.Date	 转化为		java.sql.Date	需要用
+		ptmt.setDate(4, new Date(g.getBirthday().getTime()));
+		但是通过java.sql.Date		转化为	java.util.Date 就不需要转化
+		因为java.sql.Date是java.util.Date的父类。
+		
+		创建一个查询的方法
+		public List<Goddess> query() throws Exception{
+		List<Goddess> result=new ArrayList<Goddess>();
+		
+		Connection conn=DBUtil.getConnection();
+		StringBuilder sb=new StringBuilder();
+		sb.append("select user_name,age from mooc_goddess");	
+		PreparedStatement ptmt=conn.prepareStatement(sb.toString());	
+		ResultSet rs=ptmt.executeQuery();
+		Goddess g=null;
+		while(rs.next()) {
+			g=new Goddess();
+			g.setUser_name(rs.getString("user_name"));
+			g.setAge(rs.getInt("age"));
+			
+			result.add(g);
+		}
+		return result;
+	}	
+		通过定义一个List集合， 引入sql驱动， 写sql语句然后打印出来，这种方式只能查询单个元素
+		
+		
+		public List<Goddess> query(String name, String mobile, String email) throws Exception{
+		List<Goddess> result=new ArrayList<Goddess>();
+		
+		Connection conn=DBUtil.getConnection();
+		StringBuilder sb=new StringBuilder();
+		sb.append(" select *  from mooc_goddess ");
+		
+		sb.append(" where user_name like ? and mobile like ? and email like ?");
+		PreparedStatement ptmt=conn.prepareStatement(sb.toString());
+		ptmt.setString(1, "%"+name+"%");
+		ptmt.setString(2, "%"+mobile+"%"); 
+		ptmt.setString(3, "%"+email+"%"); 
+		System.out.println(sb.toString());
+		ResultSet rs=ptmt.executeQuery();
+		Goddess g=null;
+		while(rs.next()) {
+			g=new Goddess();
+			g.setId(rs.getInt("id"));
+			g.setUser_name(rs.getString("User_name"));
+			g.setAge(rs.getInt("age"));
+			g.setSex(rs.getInt("sex"));
+			g.setBirthday(rs.getDate("birthday"));
+			g.setEmail(rs.getString("email"));
+			g.setMobile(rs.getString("mobile"));
+			g.setCreate_date(rs.getDate("create_Date"));
+			g.setCreate_user(rs.getString("create_user"));
+			g.setUpdate_date(rs.getDate("Update_date"));
+			g.setUpdate_user(rs.getString("Update_user"));
+			g.setIsdel(rs.getInt("isdel"));
+			
+			result.add(g);
+		}
+		return result;
+	}
+		进行多个参数的查询，用while循环查询元素已有的属性。 ptmt.setString(1, "%"+name+"%"); 通过这种方式将相似的查询元素找出
+		
+		public List<Goddess> query(List<Map<String, Object>> params) throws Exception{
+		List<Goddess> result=new ArrayList<Goddess>();
+		
+		Connection conn=DBUtil.getConnection();
+		StringBuilder sb=new StringBuilder();
+		sb.append(" select *  from mooc_goddess ");
+		
+		if(params!=null && params.size()>0) {
+			for (int i = 0; i < params.size(); i++) {
+				Map<String, Object> map=params.get(i);
+				sb.append(" and "+map.get("name")+map.get("rela")+map.get("value"));
+			}
+		}		
+		PreparedStatement ptmt=conn.prepareStatement(sb.toString());
+		System.out.println(sb.toString());
+		ResultSet rs=ptmt.executeQuery();
+		Goddess g=null;
+		while(rs.next()) {
+			g=new Goddess();
+			g.setId(rs.getInt("id"));
+			g.setUser_name(rs.getString("User_name"));
+			g.setAge(rs.getInt("age"));
+			g.setSex(rs.getInt("sex"));
+			g.setBirthday(rs.getDate("birthday"));
+			g.setEmail(rs.getString("email"));
+			g.setMobile(rs.getString("mobile"));
+			g.setCreate_date(rs.getDate("create_Date"));
+			g.setCreate_user(rs.getString("create_user"));
+			g.setUpdate_date(rs.getDate("Update_date"));
+			g.setUpdate_user(rs.getString("Update_user"));
+			g.setIsdel(rs.getInt("isdel"));
+			
+			result.add(g);
+		}
+		return result;
+	}	
+		将要查找的元素放在一个集合里，
+		Action中的测试查询方法方法
+		public static void main(String[] args) throws Exception {
+		
+		GoddessDao g=new GoddessDao();
+		
+//		List<Goddess> result=g.query("阿妹","18712345678","xiaoxia@mooc.com");
+		
+		List<Map<String, Object>> params=new ArrayList<Map<String, Object>>();
+		
+		Map<String, Object> param=new HashMap<String, Object>();
+		param.put("name", "user_name");
+		param.put("rela", "like");
+		param.put("value", "'%阿妹%'");
+		params.add(param);
+		param=new HashMap<String, Object>();
+		param.put("name", "mobile");
+		param.put("rela", "=");
+		param.put("value", "18712345678");
+		params.add(param);
+		List<Goddess> result=g.query(params);
+		for (int i = 0; i < result.size(); i++) {
+			System.out.println(result.get(i).toString());
+		}
+		Goddess g1=new Goddess();
+		
+		g1.setUser_name("阿妹");
+		g1.setAge(25);
+		g1.setSex(1);
+		g1.setBirthday(new Date());
+		g1.setEmail("xiaoxia@mooc.com");
+		g1.setMobile("18712345678");
+		g1.setUpdate_user("Goerage");
+		g1.setIsdel(1);
+//		g1.setId(5);
+
+//		Goddess g2=g.get(5);
+//		System.out.println(g2.toString());
+//		g.delGoddess(1);
+//		g.updateGoddess(g1);
+//		g.addGoddess(g1);
+	}
+		视图层
+		一流程：
+		 *程序启动后，一直保持运行状态
+		 *循环接受控制台的输入参数
+		 *调用Action(控制层)响应，并将返回结果展示在控制层
+		 *直到输入特定的输入标记（如EXIT）后，程序退出。
+	
+	JDBC
+	一.JDBC常用的API深入及存储过程的调用
+	二。JDBC的事务管理
+	三.数据库连接池	1.dbcp 		2.c3p0
+	四.JDBC的替代产品  H  mybiats
+
+	JDBC详解之存储过程的调用
+	JDBC调用无参数存储过程：
+		存储过程代码：
+		CREATE PROCEDURE imooc_db.sq_select_nofilter()
+		BEGIN
+			select * from imooc_godeess;
+		END
+		调用代码：
+		Connection conn=DBUtil.getConnection();
+		CallableStatment c=conn.prepareCall("Call sp_select_nofilter()");
+		c.execute();
+		ResultSet rs=c.getResultSet();
+	JDBC调用含输入参数存储过程
+	JDBC调用含输出参数存储过程
+	JDBC调用含输入，输出参数存储过程
