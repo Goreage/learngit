@@ -1,0 +1,70 @@
+package com.imooc;
+
+import java.io.IOException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+//注入servlet
+/**
+ * 重写servlet
+ * @author Administrator
+ *
+ */
+@WebServlet(value="SearchServlet", loadOnStartup = 1, urlPatterns = "*.do",
+			initParams = {
+				@WebInitParam(name = "username", value = "tom"),
+				@WebInitParam(name = "pwd", value ="123456")
+				/**
+				 * 初始化传入参数
+				 *
+				 */
+			}
+		)
+public class SearchServlet extends HttpServlet{ 
+	
+	/**
+	 * init用于初始化,只能被调用一次
+	 */
+	@Override
+	public void init() throws ServletException{
+		super.init();
+	}
+	
+	/**
+	 * 通过此方法将init传入的参数进行使用
+	 */
+	@Override
+	public void init(ServletConfig config) throws ServletException{
+		String username = config.getInitParameter("username");
+		String pwd = config.getInitParameter("pwd");
+	}
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		super.doGet(req, resp);
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+		super.doGet(req, resp);
+	}
+}
+
+Servlet + Ajax实现搜索框智能提示
+	选择Ajax异步传递数据的方式
+	1.了解搜索框智能提示的应用场景
+	2.掌握搜索框智能提示的原理
+	3.自己动手开发搜索框智能提示的功能
+理论分析
+	1.在搜索框输入关键字
+	2.浏览器将关键字异步发送给服务器
+	3.服务器经过处理，将相应的数据以Json格式返回给客户端
+	4.客户端接收服务器的响应数据，解析之后使用js操作dom显示数据	
+重点一：数据交互采用ajax的形式
+重点二：javaSript解析数据动态展示

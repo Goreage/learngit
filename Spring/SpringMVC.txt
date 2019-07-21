@@ -1,0 +1,43 @@
+MVC简介
+Spring MVC基本概念
+Spring MVC项目搭建
+用Spring Mvc进行开发
+
+MVC的核心思想是业务数据抽取同业务数据呈现相分离
+    View 视图层为用户提供UI重点关注数据的呈现
+    Model 模型层 业务数据的信息表示，关注支撑业务的信息构成，通常是多个业务实体的组合
+    Controller 控制层 调用业务逻辑产生合适的数据(Model) 传递数据给视图层用于呈现
+MVC是一种架构模式
+    程序分层，分工合作，既相互独立，又协同工作。
+MVC是一种思考方式
+    需要将什么信息展示用户，如何布局
+
+Spring MVC DispatcherServlet 在 Controller 和 View中的联系。
+HandlerAdapter(适配器，模式)
+    DispatcherServlet --------> use HandlerAdapter\
+
+HandlerInterceptor(拦截器) 是一个interface
+有三个方法：afterCompletion(HttpServletRequest request, HttpServletReponse response, 
+Object handler, Exception ox)
+           postHandle(HttpServletRequest request, HttpSerletResponse, Object handler,
+ModelAndView modelAndView)
+            preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+HandlerMapping(映射关系的， 哪一个)
+
+Maven
+    1.Project Object Model
+    An xml file (pom.xml)
+    Contains information
+    dependencies, developers
+    organization, licenses...
+2.Dependency
+    项目与项目之间的依赖
+3.Coordinates(坐标)
+            groupId
+            artifactId
+            version
+            packaging
+
+
+mvn archetype:generate -DgroupId=imooc-arthur -DartifactId=spring-mvc-study
+-DarchetypeArtifactId=maven-archetype-webapp

@@ -1,4 +1,4 @@
-项目之间的跳转 Ctrl+Alt+]	向前跳转
+﻿项目之间的跳转 Ctrl+Alt+]	向前跳转
 Ctrl+Alt+[	向后跳转
 类之间的跳转	Ctrl+Shift+A
 	加上recent file 	  Ctrl+E找到最近文件
@@ -11,5 +11,8 @@ Ctrl+Alt+[	向后跳转
 	文件：其他的.class文件
 	符号：函数：Shift+Ctrl+Alt+N
 findpath :Ctrl+Shift+F
+按Ctrl+/，就可以往行首添加"//"，将该行注释掉。
+
+再次按Ctrl+/，可以去掉该行注释。
 
   

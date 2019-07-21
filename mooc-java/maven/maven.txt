@@ -1,0 +1,134 @@
+maven介绍及环境搭建
+    Maven是基于项目对象模型(POM),可以通过一小段描述信息来管理项目的构建，报告和文档的软件项目管理工具。
+src
+    -main
+        -java
+            -package
+    -test
+        -java
+            -package
+    resources
+
+稳扎稳打-maven基础知识
+常用的构建命令介绍
+自动创建目录骨架
+maven中的坐标和仓库
+在Eclipse安装maven插件以及创建maven项目
+maven的生命周期和插件
+
+clean, compile, test, package, install
+
+完整的项目构建过程包括：
+清理， 编译， 测试， 打包， 集成测试， 验证， 部署
+maven的生命周期:
+clean   清理项目
+    pre-clean清理项目
+    clean清理上一次构建生成的所有文件
+    post-clean执行清理后的文件
+default 构建项目（最核心）
+    compile test package install
+site    生成项目站点
+    pre-site 在生成项目站点前要完成的工作
+    site 在生成项目的站点文档
+    post-site 在生成项目站点后要完成的工作
+    site-deploy 发布生成的站点到服务器上
+
+pom.xml常用元素介绍
+project 是pom的根元素， 包含约束条件
+xsi 指定了当前的pom的版本
+<groupId>反写的公司网址+项目名</groupId>
+<artifactId>项目名+模块名</artifactId>
+<!--第一个0表示大版本号
+    第二个0表示分支版本号
+    第三个0表示小版本号
+    0.0.1
+    snapshot快照
+    alpha内部测试
+    beta公测
+    Release稳定
+    GA正式发布
+    -->
+    <version></version>
+<!--默认是jar
+    war zip pom-->
+    <packaging></packaging>
+    <!--项目描述名-->
+    <name></name>
+    <!--项目地址-->
+    <url></url>
+    <!--项目描述-->
+    <description></description>
+    <developers></developers>
+    <licenses></licenses>
+    <organization></organization>
+
+    <dependencies>
+        <dependency>
+            <groupId></groupId>
+            <artifactId></artifactId>
+            <version></version>
+            <type></type>
+            <scope>test</scope>
+            <!-- 设置依赖是否可选 -->
+            <optional></optional>
+            <!-- 排除以来传递列表 -->
+            </executions>
+  			<executions>
+  				<execution>
+  				</execution>
+  			</executions>
+        </dependency>
+    </dependencies>
+    <!-- 依赖的管理 -->
+  <dependencyManagement>
+  	<dependcies>
+  		<dependency></dependency>
+  	</dependcies>
+  </dependencyManagement>
+   <!-- 插件列表 -->
+  	<plugins>
+  	<plugin>
+  		<groupId></groupId>
+  		<artifactId></artifactId>
+  		<version></version>
+  	</plugin>
+  	</plugins>
+  </build>
+  <!-- 子模块的父模块的继承 -->
+  <parent></parent>
+  <!--  定义多个模块，多个编译-->
+  <module> </module>
+
+  <scope></scope>
+  <!-- 依赖的范围 -->
+
+  三种classpath
+  1.封装
+  2.编译
+  3.运行
+
+  依赖范围
+依赖关系范围用于限制依赖关系的传递性，还用于影响用于各种构建任务的类路径。
+
+有6个范围可用：
+
+compile
+这是默认范围，如果未指定则使用。编译依赖项在项目的所有类路径中都可用。此外，这些依赖项将传播到依赖项目。
+提供
+这很像compile，但表示您希望JDK或容器在运行时提供依赖关系。例如，在为Java Enterprise Edition构建Web应用程序时，您可以将Servlet API和相关Java EE API的依赖关系设置为范围，provided因为Web容器提供了这些类。此范围仅在编译和测试类路径中可用，并且不可传递。
+runtime
+此范围指示编译不需要依赖项，但是用于执行。它位于运行时和测试类路径中，但不是编译类路径。
+test
+此范围表示正常使用应用程序不需要依赖关系，并且仅适用于测试编译和执行阶段。此范围不具有传递性。
+system
+此范围类似于provided您必须提供明确包含它的JAR。工件始终可用，并且不会在存储库中查找。
+import
+此范围仅pom在该<dependencyManagement>部分中的类型依赖项上受支持。它指示要使用指定POM <dependencyManagement>部分中的有效依赖项列表替换的依赖项。由于它们被替换，具有范围的依赖性import实际上不参与限制依赖性的传递性。
+
+依赖传递
+shanji 依赖于 nange 依赖于 bge 先将nange的地址注入到shanji的pom.xml中，然后complie后发现错误，
+缺少nange的jar，将nange的jar打包， clean package ,然后在clean stall 安装 然后再run.
+最后显示，shanji依赖于nange 和bge 将<execution> bge后 将只依赖于nange
+
+
+依赖冲突
