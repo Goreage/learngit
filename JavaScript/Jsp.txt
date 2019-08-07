@@ -1,0 +1,317 @@
+1C/S体系结构
+C/S（Client/Server）即客户端/服务器结构
+2.B/S(Brower/Server)即浏览器/服务端
+C/B B/S结果比较
+Web
+静态网站，动态网站。动态脚本语言jsp.javaSript
+动态网站数据存在数据库中。
+Web开发技术，客户端Html CSS FLASH 客户端脚本技术JavaSript
+2.服务端应用技术
+（1）CGI（通用网关接口）
+（2）ASP
+（3）PHP
+（4）ASP.NET
+（5）Jsp
+
+
+Jsp静态内容：Html构成网页的主要。
+Jsp标记
+1.指令标记
+	用于转换阶段提供JSP页面
+2.动作标记
+	JSP的动作标记来标记用来控制动作
+3.脚本
+	脚本元素包含
+	1.声明变量和方法
+		在"<%!" "%>"标记符号之间声明变量和方法
+		<%! Data data;
+			public int continueSum(int strat, int end){
+				int sum = 0;
+				for(int i=start; i<=end; i++)
+					sum += i;
+					return;
+			}
+		%>
+	2.Java程序片
+		本质：在"<%" 和 "%>"之间插入Java程序片，一个Jsp页面可以有多个程序片
+		程序片中声明的变量为JSP页面的局部变量
+		<% data=new Date();
+			out.prinln("<BR>"+date);
+			int start=1;
+			int end=100;
+			int sum=continueSum(stsrt,end);
+		%>
+	3.Java表达式
+		可以在"<%=" 和 "%>"之间插入一个表达式，这个表达式必须能求值
+		<%= start%>
+		至					<!-- Java表达式 -->
+		<%= end%>			<!--表达式的值由服务器负责计算，并将结果用字符串形式发送
+								给客户端-->
+		的连续和是
+		<%= sum%>
+	4.Jsp的注释
+	1.<!--...-->：在客户端查看源码时能看到注释
+	2.<%--...--%>:在客户端查看源码时无法看到注释
+	
+	JSP指令标记
+		JSP中主要包含3种指令标记，分别是page指令，include指令和taglib指令
+page通常位于页面的顶端，控制整个页面的显示属性
+	page指令标记指定如下属性的值conyenTypem, import language, session buffer autoFlush, isThreadSafe
+	contentType属性 contentType="text/html;同时还可以用word格式解析
+	contentType="application/msword"
+include指令：将一个外部文件嵌入到jsp页面中，同时解析这个页面中的jsp语句
+	语法格式<%@ include file="文件的URL"%>
+	动作标记是一种特殊的标记，它影响JSP运行时的行为，在jsp中有七个动作标记，include , param, forward标记
+	include语法格式：
+		<jsp:include page="文件的URL" />
+		include动作标记告诉JSP页面包含一个文件，即JSP页面运行才将文件加入。
+	include指令标记与include动作标记的区别
+		一。语法格式
+		文件包含格式：<&@ include file="oath"&>
+		动作包含指令：<jsp:include page="url">
+		二.包含文件的编译
+	
+	forward动作标记：从该指令处停止页面的执行，而转向执行page属性指定的JSP页面
+		forward动作标记的语法格式是：
+		<jsp:forward page="要转向的页面">
+		注意：当页面使用forward动作标记转向后，尽管用户看到转向后的页面效果。但浏览器
+		地址栏中显示的仍然是转向前的JSP页面的URL地址
+taglib指令，使用标签库定义新的自定义标签，并在jsp页面中启用定制行为
+
+JSP内置对象--概述
+	有些对象不用声明就可以在JSP页面的Java程序片和表达式部分使用，这就是JSP内置对象
+	JSP的常用内置对象有request, response, session, application和out
+	response和request对象是JSP内置对象中比较重要的两个，这两个对象提供了对服务器
+	通信方法的控制。
+request对象
+	HTTP通信协议是用户与服务器之间一种提交（请求）信息与响应信息（request/response）的通信协议
+	在JSP中，内置对象request封装用户提交的信息，那么该对象调用相应的方法可以获取封装的信息，即使用该对象可以
+	获取用户提交的信息，它是HttpServletRequest类的实例，request对象具有请求域，即完成客户端的请求之前，该对象一直有效。
+	
+	一般格式：
+	<form action="JSP页面" method=get | post
+		提交手段 一般使用post提交信息不会显示在地址栏中。get反	
+	</form>
+	JSP页面可以让request对象使用getParameter(String s)方法获取表单提交的信息。
+	request设置编码
+		request在获取信息之前使用setCharacterEncoding方法设置自己的编码为UTF-8:
+			request.setCharacterEncoding("UTF-8");
+	内置对象request常用方法如下：
+	getProtocol() 获取用户向服务器提交信息所使用的通信协议，比如hettp
+	getServletPath() 获取用户请求的JSP页面文件的目录
+	getContextPath() 获取用户请求的当前Web服务的目录
+	getRemoteAddr() 获取用户的IP地址
+	getRemotelHost() 获取用户机的名称（如果获取不到，就获取IP地址）
+	getServletName() 获取服务器的名称。
+	getServerPort() 获取服务器的端口号。
+	
+response对象
+	当用户访问一个服务器的页面时，会提交一个HTTP请求，服务器收到请求时，返回HTTP响应
+响应和请求类似，也有某种结构，每个响应都由状态行开始，可以白喊几个头及可能的信息体。
+	与request对象相对应的对象是response对象。可以用response对象对用户的请求做出动态响应，
+	向用户发送数据。
+Response动态响应
+	由于page指令只能为contentType指定一个值来决定响应的mime类型，如果想动态的改变这个属性，
+	的值来响应用户，就需要使用response对象的setContentType(String s)方法来改变contentType的属性值
+	该方法中的参数s可取值：text/html, text/plain, image/gif等
+	当用setContentType方法动态改变了contenType的属性值，即响应mime类型，JSP引擎就会按着新的mime类型将JSP页面的输出结果返回用户
+Response重定向
+		某些情况下，当响应用户时，需要将用户重新引导至另一个页面。例如，如果用户输入的表单信息不完整，就会
+		再被引导该表单的输入页面。
+		可以使用response的sendRedirect(URL url)方法实现用户的重定向。
+session:记录有关信息，用户会话
+		Long getCreationTime():返回Session创建时间
+		Public String getid():返回session创建时间
+		public void setAttribute(String key, Object obj):session对象可以调用
+		该方法将参数Object指定的对象obj添加到session对象中，并为添加的对象指定一个索引关键字。
+		public Object getAttribute(String key):获取seesion对象索引关键字是key的对象。
+		
+session对象的生存期限
+		session对象的生存期限依赖于session对象是否调用invalidate()方法使得session无效或session对象达到了设置的最长“发呆”状态时间
+		以及是否关闭服务器。
+		如果关闭服务器，那么用户的session消失，所谓“发呆”状态时间是指用户对Web服务目录发出的两次请求之间的间隔时间（默认的发呆时间是30分钟）
+		session对象使用setMaxInactiveInterval（int interval）方法设置最长的“发呆”状态时间
+application对象：1.application随服务器的关闭而关闭
+				2.application属性是共享的，在任何时候对他的操作都会影响其他用户对此的操作
+			application对象的常用方法
+			1.public void setAttribute(String key,Object obj)application对象可以调用该方法将参数Object指定了一个索引关键字。
+			2.public Object getAttribute(String key)获取application对象含有关键字是key的对象
+			3.public Enumeration getAttributeNames()产生一个枚举对象，该枚举对象使用nextElemets()遍历application中的各个对象对应的关键字
+out对象
+		out对象是一个输出流，用来向用户输出数据。
+		1.out.println()向客户端输出字符串
+		2.out.flush()将缓冲区内容输出到客户端
+		3.out.clearBuffer()清除缓冲区的内容
+动作标记param的使用
+	param标记以“名字-值”对的形式为其他标记提供附加信息，param标记不能独立使用，需作为jsp:include,jsp:forward, jsp:plugin
+	标记的字标记来使用。
+	param动作标标记语法格式：
+	<jsp:param name="名字" value="指定给param的值">
+	forward标记可以使用param动作标记作为字标记，向转向的页面传送信息，forward动作标记指定的转向的JSP文件可以使用Tomcat
+	服务器提供的request内置对象获取param子标记中name属性所提供的值。
+	
+使用JavaBean
+	1.<jsp:useBean>动作标记
+	useBean标记的语法格式：
+	<jsp:useBean id="bean的名字" class="创建beans的字节码" scope="bean有效范围"/>
+	属性						说明
+	id 				指定在JSP网页中产生的JavaBean对象名称，
+					这样可利用此名称在JSP网页中使用JavaBean对象
+
+	scope			设置JavaBean对象的生命周期，有request session, page 和 application四种
+	
+	class			指定使用的类的名称（要带包名）
+	JavaBean对象的生命周期
+	1.Seession类型的声明周期
+		有效范围是用户的session(会话)期间。不同用户（即不同浏览器）的scope取值session的bean是互不相同的（占有不同的内存空间）
+		范例：建立一个具有计算访客人数功能的JavaBean类Counter.在创建一个使用Counter组件的JSP网页counterdemo.jsp
+	2.application类型的生命周期
+	bean的有效范围是application期间，JSP引擎为Web服务目录小所有的JSP页面分配一个共享的bean，不同用户的scope取值是application
+	的bean也都是相同的一个。也就是说在eclipse中得到的网址放到浏览器中数目不会改变
+	范例：更改使用Counter组件的JSP网页counterdemo.jsp， 将JavaBean对象的生命周期改为aoolication，并观察与session的差异。
+	
+	3.page类型的生命周期
+	有效范围是当前页面，不同用户的scope取值是page的bean也是互不相同。只在页面消失视为无效，刷新不会改变
+	范例：更改使用Counter组件的JSP网页CounterDemo.jsp,将JavaBean对象的生命周期改为page 
+	4.request类型的生命周期
+	有request范围的JavaBean不仅在单个页面可见，也可在被页面包含(include)的页面中可见，或者转向(forward)的页面可见。
+	范例：新建使用Counter组件的JSP网页request.jsp,将JavaBean对象的生命周期设为request，同时在页面中利用forward动作标记转向request0.jsp
+设计JavaBean属性
+	1.<jsp:getProperty>动作标记
+	使用<jsp:getProperty>动作标记可以获取JavaBean的属性值，并将这个值用串的形式发送给影虎的浏览器。
+	使用getProperty动作之前，必须使用useBean动作标记获取响应的bean
+
+一个servlet的生命周期主要有下列三个过程：
+	1.初始化 servlet. servlet第一次被请求加载时，服务器初始化这个servlet，即创建一个servlet,这个servlet调用init方法完成必要的初始化工作。
+	2.诞生的servlet再调用service方法响应用户的请求。
+	3.当服务器关闭时，调用destroy方法，消灭servlet.
+	init方法
+	public void init(ServletConfig config) throws ServletException
+	servlet第一次调用请求加载时，服务器创建一个servlet，这个对象调用init方法完成必要的初始化工作。
+	init方法只被调用一次，即在servlet第一次被请求加载时调用该方法。
+	servise方法
+	该方法是HttpServlet类中的方法，我们可以在子类中直接继承该方法或重写这个方法。service方法的声明格式：
+	public void service(HttpServletRequest request HttpServletResponse response) throw ServletException,IOException
+	destroy方法
+	该方法是HttpServlet类中的方法，子类可直接继承这个方法，一般不需要重写。destroy方法的声明格式：
+		public destroy()
+		当服务器终止服务时，比如关闭服务器等，destroy（）方法会被执行，销毁srvlet.
+		
+doGet和doPost方法
+	可以在Servlet类中重写doPost或doGet方法来响应用户的请求，这样可以增加响应的灵活性，并降低服务器的负担。
+	如果不论用户请求类型是Post还是get,服务器的处理过程完全相同，那么可以只在doPost方法中编写处理过程，而在doGet方法即可，
+	或只在doGet方法中编写处理过程，而在doPost方法中在调用doGet方法
+	如果根据请求的类型进行不同的处理，就需在两个方法中编写不同的处理过程。
+	
+	Web服务目录下的JSP页面都可以通过表单请求该web服务目录下的某个servlet.
+	如果web.xml文件中<url-pattern>指定的请求servlet的格式是"/computeBill",那么form表单中zction给出的值就是"computeBill"
+	<form action="computeBill" ....>
+	</form>
+	
+	当请求一个servlet时，可以加入参数及其值，格式是：servlet名?参数1=值&参数2=值...参数n=值
+	例如：<form action=
+	"computeBill?sideA=10.66&sideB=23.9&sideC=897"....>
+	</form>
+	通过JSP页面访问servlet的好处是JSP页面可以负责页面的信息显示，信息的有关处理交给servlet去完成。
+
+通过超链接访问servlet
+	JSP页面可以使用超链接去请求某个servlet.如果web.xml文件中<url-pattern>指定的请求servlet的格式是"/triangle"那么<a>超链接标记中href的值是“triangle”
+如下所示意：
+		<a href="triangle"></a>
+
+重定向与转发
+	重定向的功能是将用户从当前页面或servlet定向到另一个JSP页面或servlet;转发的功能是将用户对当前JSP页面或servlet的请求
+	转发给另一个JSP页面或servlet.
+	1.sendRedirect方法
+	void sendRedirect(String location)是HttpSerletResponse类中的方法，
+	当用户请求一个servlet时，该servlet在处理数据后，可以使用重定向方法将用户重新定向到另一个JSP页面或Servlet.但不能将用户对当前页面servlet的请求(HttpServletReques对象)
+	转发给所定向的资源。也就是说，重定向的目标页面或servlet无法使用request获取用户提交的数据
+	
+	2.RequestDispatcher对象
+	实现转发的步骤如下：
+	1.得到RequestDispatcher对象
+	RequestDispatcher dispatcher= request.getRequestDispatcher("a.jsp");
+	2.转发
+	例如：dispatcher.forward(request,response);
+	将用户对当前JSP页面或servlet的请求转变成对z.jsp页面的请求。
+
+模型的生命周期与视图更新
+	JSP中的MVC模式与前面学习的JSP+JavaBean模式有很大的不同。在JSP+JavaBeam模式中，由JSP页面使用JavaBean标记
+	<jsp:useBean id="给Bean起的名字" class="创建bean的类" scope=“bean有效范围”/> 创建JavaBean
+	而在JSP中的MVC模式中，也可控制器servlet负责创建JavaBean，并将有关数据存储到创建的JavaBean的getProperty动作标记
+	<jsp:getProperty name="bean的名字" property="bean的属性"/>显示这个JavaBean中的数据。
+	在JSP中的MVC模式中，当要用控制器servlet创建JavaBean时，就可以使用JavaBean类的带参数的构造方法，类中的方法的命名继续保留"get"规则，
+	但可以不遵守"set"规则。
+	在JSP中的MVC模式中，servlet创建的JavaBean也涉及到生命周期，生命周期分为request.session和application。假设创建JavaBean的类的名字BeanClass,
+	该类包名为uers.yourbean
+	(1)JavaBean的创建
+	servlet负责创建JavaBean，那么创建生命周期为request的JavaBean的步骤如下：
+	（1）用BeanClass类的某个构造方法创建JavaBean对象，例如：BeanClass bean=new BeanClass();
+	（2）将所创建的JavaBean对象存放到HttpServletRequest对象request中，并指定查找JavaBean的关键字。
+	例如：request.setAttribute("keyWord",bean);
+	(2)视图更新 
+	servlet创建bean的第2步决定了JavaBean的生命周期为request,该bean只对servlet请求的JSP页面有效。
+	对于生命周期为request的JavaBean，servlet负责根据模型中数据的变化通知视图更新，其手段是使用转发，即使用RequestDispatcher对象向某个JSP页面发出请求，该bean只对servlet请求的JSP页面有效。
+	JSP页面显示bean中的数据，然后该JavaBean所占有的内存释放，结束自己的生命。
+	servlet所请求的JSP页面，如show.jsp页面，必须使用如下标记获得servlet所创建的JavaBean的引用（不负责创建bean）
+	<jsp:useBean id="keyWord" type="use.yourbean.BeanClass" scope="request"/>
+	上述标记中的id就是servlet所创建的JavaBean
+	servlet请求一个JSP页面文件show.jsp的代码如下
+	RequestDispatcher
+	dispatcher=request.getRequestDispatcher("show.jsp");
+	dispatcher。foewrad(request,response);
+	如果上述代码执行成功，用户就看到了show.jsp页面的使用效果，他使用
+	<jsp:getProperty name="keyWord" property="bean的变量"/>
+	标记显示JavaBean中的数据
+	2.session周期的JavaBean
+	(1)JavaBean的创建
+		(1)servlet创建生命周期为session的JavaBean对象，例如：BeanClass bean=new BeanClass();
+		(2)将所创建的JavaBean对象存放到对象session中，并指定查找该JavaBean的关键字：
+			HttpSession session=request.getSession(true);
+			session.setAttribute("keyWord",bean);
+	(2)视图更新
+		servlet创建JavaBean的第二步决定了JavaBean的生命周期为session,该JavaBean的有效期限为用户的绘画期间。当servlet创建生命周期为session的JavaBean
+		后，只要用户的会话消失，该JavaBean就一直存在
+	一个用户在访问web服务目录的各个JSP中都可以使用
+	<jsp:useBean id="keyWord" type="user.yourbean.BeanClass" scope="session"/>
+	标记获得servlet所创建的JavaBean的引用，然后使用<jsp:getProperty name="keyWord" propert="bean的变量"/>
+	标记显示JavaBean中的数据。
+	对于生命周期为session的JavaBean,如果servlet希望某个JSP显示其中的数据，可以使用RequestDispatcher对象向该JSP页面发出转发请求，也可以使用HttpServletResponse类中的重定向方法sendRedirect().
+	注意：不同用户的生命周期的JavaBean是互不相同的，即占用不同的内存空间。
+	3.application周期的JavaBean
+	（1）JavaBean的创建
+	servlet创建的生命周期的application的JavaBean的步骤如下：
+	1）用BeanClass类的某个构造方法创建JavaBean对象，例如：
+		BeanClass bean=new BeanClass();
+	2)servlet可以使用getServletContext()方法返回服务器创建ServletContext对象的引用，将所创建的bean对象存放到服务器创建的ServletContext对象的引用，将所创建的dean对象存放到服务器创建的ServletContext对象中，并指定查找JavaBean的关键字。
+	getServletContext().setAttribute("keyWord",bean);
+	(2)视图更新
+		servlet创建JavaBean的第二步决定了JavaBean的生命周期为application.当servlet创建生命周期为application的JavaBean后，
+		只要web应用程序不结束，该JavaBean就一直存在.
+	一个用户在访问web服务目录的各个JSP中都可以使用
+	<jsp:useBean id="keyWord" type="user.yourbean.BeanClass" scope="application"/>
+	标记获得servlet所创建的JavaBean的引用，然后使用
+
+		<jsp:getProperty name="keyWord" property="bean的变量"/>
+	标记显示JavaBean中的数据
+	对于生命周期为application的JavaBean,如果servlet希望某个JSP显示其中的数据，可以使用RequestDispatcher对象向该JSP页面发出转发请求，也可以使用HttpServletResponse类中的重定向方法sendRedirect().
+	注意：不同用户的application生命周期的JavaBean是相同的，即占用相同的内存空间。
+
+JDBC常用接口
+数据库连接接口Connection
+	java.sql.Connection接口负责与特定数据库的连接，形成连接对象。由该对象完成相关的操作。
+	（1）createStatement()创建并返回Statement实例，通常在执行无参数的SQL语句时创建该实例。
+	（2）prepareStatement()创建并返回一个PrepareStatement实例通常在执行包含参数的SQL语句时创建该实例，并对SQL语句进行了预编译处理。
+	（3）close()立即释放Connection实例占用的数据库和JDBC资源，即关闭数据库连接
+	4.执行SQL语句接口Statement
+	java.sql.Statement接口用来执行静态的SQL语句，并返回执行结果。
+	（1）executeQuery(String sql)执行指定的静态SELECT语句，并返回ResultSet实例
+	（2）executeUpdate(String sql)执行指定的INSERT, UPDATE 和 DELECT语句，并返回一个int型数值，并同步更新记录的条数。
+	（3）close()立即释放Statement实例占用的数据库和JDBC资源及关闭Statement实例。
+	5.执行动态SQL语句接口PreparedStatement
+	java.sql.PrepareStatement接口继承自Statement,是Statement接口的扩展，用来执行动态的SQL语句，即包含参数的SQL语句。
+	（1）executeQuery()执行PrepqreStatement对象中SQL语句，并返回该查询生成的ResultSet对象。
+	（2）executeUpdate()执行PreparedStatement对象中SQL语句，该语句必须是一个SQL数据操作语言语句，比如insert, update, delete语句。
+	（3）close()立即释放PreparedStatement实例占用的数据库和JDBC资源即关闭PreparedStatement实例。
+	6.访问结果集接口ResultSet
+	java.sql.ResultSet接口类似于一个数据表，通过该接口实例可以获得检索结果集，以及对应数据表的相关信息，例如列名和类型等，ResultSet实例通过执行查询数据库的语句生成

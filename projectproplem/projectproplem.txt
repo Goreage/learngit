@@ -1,0 +1,106 @@
+The server time zone value 'ÖÐ¹ú±ê×¼Ê±¼ä' is unrec
+
+在做一个ssm框架项目的时候遇到的问题，显示sqlException问题，原因是时区的问题，于是我mysql -uroot -p -P3306 -h127.0.0.1  进入mysql中
+set time_zone = timezone
+
+比如北京时间（GMT+0800）
+
+set time_zone = '+8:00'; 如下:
+
+mysql> set time_zone='+8:00';
+
+Query OK, 0 rows affected (0.00 sec)
+
+ 
+mysql> show variables like '%time_zone%';
+
++------------------+--------+
+
+| Variable_name | Value |
+
++------------------+--------+
+
+| system_time_zone | CST |
+
+| time_zone | +08:00 |
+
++------------------+--------+
+
+2 rows in set (0.00 sec)
+
+ 
+
+ 
+
+3 再通过select now()来验证时区
+
+
+ 
+mysql> show variables like '%time_zone%';
+
++------------------+--------+
+
+| Variable_name | Value |
+
++------------------+--------+
+
+| system_time_zone | CST |
+
+| time_zone | +08:00 |
+
++------------------+--------+
+
+2 rows in set (0.00 sec)
+
+ 
+mysql> select now();
+
++---------------------+
+
+| now() |
+
++---------------------+
+
+| 2013-08-05 10:35:31 |
+
++---------------------+
+
+1 row in set (0.00 sec)
+
+ 
+mysql> set time_zone='+0:00';
+
+Query OK, 0 rows affected (0.00 sec)
+
+
+ 
+mysql> show variables like '%time_zone%';
+
++------------------+--------+
+
+| Variable_name    | Value  |
+
++------------------+--------+
+
+| system_time_zone | CST    |
+
+| time_zone        | +00:00 |
+
++------------------+--------+
+
+2 rows in set (0.00 sec)
+
+
+ 
+mysql> select now();
+
++---------------------+
+
+| now()               |
+
++---------------------+
+
+| 2013-08-05 02:35:43 |
+
++--------------------
+相关操作，OK
