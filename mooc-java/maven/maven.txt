@@ -132,3 +132,12 @@ shanji 依赖于 nange 依赖于 bge 先将nange的地址注入到shanji的pom.x
 
 
 依赖冲突
+    1.短路优先
+    A -> B -> C -> X(jar)
+    A -> D -> X(jar) 
+    2.先声明先优先
+    如果路径长度相同，则谁先声明，先解析谁
+
+聚合和继承
+聚合：新建一个maven项目，用<module>将其他maven项目的地址整合到pom中， <packaging>pom<packaging>
+然后install
