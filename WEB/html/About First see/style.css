@@ -1,0 +1,8 @@
+bob{
+    color:red;
+    /*
+    css样式文件名称以有意义的英文字母命名，如main.css
+    rel="stylesheet"type="text/css"是固定写法不可改变
+    <link>标签位置一般写在<head>标签之内
+    */
+}
