@@ -1,0 +1,152 @@
+    .clr{
+        clear:both;
+        width:0px;
+        height: 0px;
+    }
+    
+    #container{
+        margin: 0 auto;
+        width: 1100px;
+    }
+    #header{
+        height: 128px;
+        background: gray url(../finsh.jpg);
+    }
+    #nav li{
+        
+        width:90px;
+        margin-right: 1px;
+        float:left;
+    }
+    #nav a{
+        /*font-size:15px;
+        line-height: 30px;
+        font-family:'微软雅黑';*/
+        font:15px/30px '微软雅黑', '黑体', sans-serif;
+        color:#363636;
+        display: block;
+        width: 100px;
+        height: 30px;
+        text-align: center;
+    }
+    #nav a:hover{
+        color:white;
+        background: url(../h.jpg);
+    }
+
+    #banner{
+        margin: 10px 0;
+    }
+    #main{
+
+    }
+
+    #lside{
+        height: 541px;
+        width: 740px;
+        border: 1px solid #EEE;       
+        float: left;
+        border-top:none;
+    }
+
+    .subtitle{
+        height: 30px;
+        background: gray;
+    }
+    .subtitle img{
+        margin: 5px 0 0 10px;
+        float: left;
+    }
+    .subtitle h1{
+        float: left;
+        margin-left: 10px;
+        font:20px/30px 'Microsoft Yahei', SimHei, sans-serif;
+    }
+    .subtitle a{
+        display: block;
+        color:#888;
+        font:15px/30px SimSun,serif;
+        float: right;
+    }
+    .four{
+        width: 350px;
+        height: 240px;
+        background:#EEE;
+        margin: 10px;
+        float: left;
+    }
+    .four img{
+        margin: 10px 10px 0 5px;
+        padding: 6px;
+        background: black;
+        float: left;
+    }
+    .four ul{
+        margin-left: 6px;
+        float: left;
+    }
+    .four li{
+        padding-left: 24px;
+        height: 29px;
+        background: url(aimjj.png) no-repeat;
+    }
+    .four h2{
+        margin: 6px 0 6px 10px;
+        font-size:16px;
+        font-family: 'Microsoft Yahei', SimHei, sans-serif;
+    }
+    .four a{
+        color:red;
+    }
+    .four a:visited{
+        color:black;
+    }
+    .four a:hover{
+        color:#FF832C;
+    }
+    #rside{
+
+        width:294px;      
+        float: right;
+    }
+
+    #art{
+        background: #EEE;
+        margin-top:1px;
+        padding-top: 25px;
+    }
+    #art a{
+        line-height: 29px;
+        display: block;
+        height: 29px;
+        padding-left: 30px;
+        background: url(aimjt.png) no-repeat;
+    }
+    #art a:hover{
+        color:#FF832C;
+        background:url(backgg.png) no-repeat;
+    }
+    #contact{
+        margin-top:3px;
+        height: 304px;
+        background:#EEE;
+    }
+
+    #footer{
+        margin-top:10px;
+        height: 120px;
+    }
+    #footer ul{
+        background: #EEE;
+        height: 40px;   
+    }
+    #footer li{
+        float:left;
+        margin-top:15px;
+        margin-left: 10px;
+    }
+    #footer address{
+        margin-top: 10px;
+        font-size:12px;
+        font-family: '微软雅黑',sans-serif;
+    }

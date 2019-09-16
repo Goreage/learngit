@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <title>表单标签，与用户交互</title>
+</head>
+
+<hody>
+    <form method="post" action="save.php"> 
+        <label for="username">用户名:</label>
+        <input type="text" name="username" id="username" value=""/><br/>
+        <label for="pass">密码：</label>
+        <input type="password" name="pass" id="pass" value=""/>
+        <input type="submit" value="确定" name="submit"/>
+        <input type="reset" value="重置" name="reset"/>
+    </form><br/>
+    <p>next </p><br/>
+    <form method="post" action="save.php">
+        账户：
+    <input type="text" name="name"/>
+        <br>
+        密码：
+    <input type="password" name="pass"/>
+
+        <h1>文本域，支持多行文本输入</h1><br/>
+        <p>当用户需要在表单输入大段文字时， 需要用到文本输入域。</p><br/>
+        <p>rows = "行数" cols = "列数" </p><br/>
+    </form>
+        <form action="save.php" method="post">
+            <label>个人简介：</label>
+            <textarea cols="50" rows="10">在这里输入内容.....</textarea>
+            <input type="submit" value="确定" name="submit"/>
+            <input type="reset" value="重置" name="reset"/>
+        </form>
+
+        <h1>使用单选框， 复选框以供用户选择</h1><br/>
+        <ol>
+            <li>语法 %input type="radio/checkbox" value="值" name="名称" checked="checked""</li><br/>
+            <li>type = radio 控件为单选框  type="checkbox" 控件为复选框</li>
+            <li>value:提交数据到服务器的值（后台程序PHP使用）</li>
+            <li>name:为控件命名，以备后台程序ASP,PHP使用</li>
+            <li>checked:当设置checked="checked"时，该选项被默认选中</li>
+        </ol>
+
+        <form name="iForm" method="post" action="save.php">
+            你是否喜欢旅游?<br/>
+            <input type="radio" name="radio" value="喜欢" checked="checked">喜欢
+            <input type="radio" name="radio" value="不喜欢">不喜欢
+            <input type="radio" name="radio" value="无所谓">无所谓
+            <br /> <br />
+            你对那种运动感兴趣？<br />
+            <input type="checkbox" name="checkbox1" value="跑步">跑步<br />
+            <input type="checkbox" name="checkbox2" value="打球">打球<br />
+            <input type="checkbox" name="checkbox3" value="登山">登山<br />
+            <input type="checkbox" name="checkbox4" value="游泳">游泳<br />
+        </form>
+        
+        <p>使用下拉列表框，节省空间</p><br />
+        <form name="iForm">
+            <label>喜欢的网站：</label>
+            <select>
+                <option value='Pornhud'>pronhud</option selected = "selected">
+                <option value='Xvideo'>Xvideo</option>
+                <option value='Google'>Google</option>
+                <option value='Baidu'>Baidu</option>
+            </select>
+        </form>
+
+        <p>使用下拉列表框进行多选</p><br/>
+        <from name="iForm">
+            <label>喜欢的软件：</label>
+            <select multiple="multiple">
+                    <option value="eclipse">eclipse </option>
+                    <option value="IDEA">IDEA</option>
+                    <option value="vscode">vscode</option>
+                    <option value="notepad">notepad</option>
+            </select>            
+        </from>
+       
+</hody>
+
+</html>

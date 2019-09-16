@@ -1,0 +1,25 @@
+<html>
+
+    <head>
+        <title>盒子模型的总结</title>
+        <style>
+            div{
+                width: 300;
+                height: 300;
+                background: gray;
+                border:50px solid blue;
+                padding:50px;
+                /*margin:50px;*/
+                margin:0px auto;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div>
+            一个盒子，有margin, border, padding 实占多少空间？<br/>
+            竖直方向:height + padding-top + padding-bottom + border-top + border-bottom + margin-top + margin-bottom<br/>
+            水平方向:width + padding-left + padding-right + border-left + border-right + margin-right + margin-left<br/>
+        </div>
+    </body>
+</html>

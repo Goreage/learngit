@@ -1,0 +1,6 @@
+@import url(second.css);
+#test1{
+    width: 200px;
+    height: 200px;
+    background: khaki;
+}

@@ -1,0 +1,29 @@
+<html>
+
+
+    <head>
+        <title>margin中的重叠问题</title>
+
+        <style>
+            #test1{
+                height: 100px;
+                background: blueviolet;
+                margin-bottom: 50px;
+            }
+
+            #test2{
+                height: 100px;
+                background:orange;
+                margin-top: 50px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="test1">
+            上下相邻的普通元素，上下边距，并非简单的相加,<br/>
+            而是:去其中的较大的元素  父子div也会发生maigin重叠
+        </div>
+        <div id="test2"></div>
+    </body>
+</html>

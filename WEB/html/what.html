@@ -1,0 +1,29 @@
+<html>
+
+<head>
+    <title>关于Javascript的函数的使用 </title>
+</head>
+
+<body>
+    <!-- alert : 警告  confirem:用于Severice -->
+    <script>
+        function makerwater(){
+            var q1=confirm("Welcome Pronhub world! oh oh This is Web World !");
+            if(q1 == false){
+                var q2 = confirm("would you like Xvoides ? this is ok bub");
+                if(q2 == false){
+                    alert("Don't push me agin!!!");
+                    makerwater();
+                }
+            }
+            
+        }
+    </script>
+    <input type="button" value="按键"  onclick="makerwater()">
+  <!--<video src="European.mp4" height="500" width="500" controls>-->
+      <!--<video src="3d.mp4" height="200" width="200" controls>-->
+    <!--<input type = "text">--><!--可以输入内容-->
+    <!--<audio src="music.mp3" autoplay loop preload controls>controls-->
+    <input type= "date"><!--显示日期-->
+</body>
+</html>

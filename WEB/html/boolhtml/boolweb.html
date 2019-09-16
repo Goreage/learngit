@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <title>实战首页布局</title>
+    <style>
+        #container {
+            width: 10002px;
+            background: gray;
+        }
+
+        #header{
+            height: 120px;
+            background: yellowgreen;
+        }
+
+        #main{
+            height: 600px;
+            /*background: green;*/
+        }
+
+        #footer{
+            height: 120px;
+            background: blue;
+        }
+
+        #lside{
+            width: 900px;
+            height: 600px;
+            float:left;
+            background: orange;
+        }
+
+        .four{
+           width: 300px;
+           height: 240px;
+           background: white;
+           margin:10px;
+           padding:10px;
+           float:left; 
+        }
+
+        #rside{
+            width: 100px;
+            height: 600px;            
+            background: purple;
+            float:right;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="header"></div>
+        <div id="main">
+            <div id="lside">
+                <div class="four">
+                        函数原型
+                        函数头，以分号";"结尾，就构成了函数的原型
+                        函数原型的目的是告诉编译器这个函数长什么样
+                        名称
+                        参数返回类型
+                </div>
+                <div class="four">
+                        类型不匹配？
+                        调用函数时给的值与参数的类型不匹配是C语言的传统上最大的漏洞
+                        编译器总是悄悄替你把类型转换好，但是这很可能不是你所期望的
+                        c++/Java就好的多
+                </div>
+                <div class="four">
+                        函数原型
+                        函数头，以分号";"结尾，就构成了函数的原型
+                        函数原型的目的是告诉编译器这个函数长什么样
+                        名称
+                        参数返回类型
+                </div>
+                <div class="four">
+                        函数原型
+                        函数头，以分号";"结尾，就构成了函数的原型
+                        函数原型的目的是告诉编译器这个函数长什么样
+                        名称
+                        参数返回类型
+                </div>
+            </div>
+            <div id="rside"></div>
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+
+</html>
