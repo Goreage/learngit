@@ -1,0 +1,26 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Example02
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            MyClass hello = new MyClass();
+            hello.SayHello();
+		 Console.WriteLine("this is c#");
+        }
+    }
+    class MyClass
+    {
+        private int x;
+        public void SayHello()
+        {
+            Console.WriteLine("Hello world");
+        }
+    }
+}

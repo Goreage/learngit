@@ -1,0 +1,64 @@
+面向对象编程（Object Oriented Programming , OOP 面向对象程序设计）是一种计算机编程架构
+
+面向对象编程中的概念主要包括：类，对象，数据抽象，数据封装，继承，动态绑定，多态性，消息传递。
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+/**
+ * 通过继承生成：基类 派生类
+ * 继承：代码的重用
+ *继承的过程：就是从一般到特殊的过程
+ * 多态性是指不同类的对象对同一消息做出不同的响应  实现接口的重用
+ * 类：对一些具有相同数据和操作的事物的描述
+ * 数据：字段
+ * 操作：方法
+ * 方法成员，它是执行代码，方法成员通常模拟类所表示的现实世界事物的功能和操作
+ * 类修饰符 类名 {}
+ * public           private 缺省
+ * internal  同一文件
+ * protected :受保护类 子类访问
+ * abstract：抽象类
+ * sealed：指定类不能被继承
+ * static ：静态类 
+ * partial:部分类
+ * 
+ * 字段
+ *  成员修饰符 数据类型 标识符；
+ * 方法 
+ *  成员修饰符 返回值类型 类型方法名（）
+ *  {.......}
+ *  
+ *  override:对由基类继承成员的新实现
+ *  read
+ **/
+namespace OOP
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Circle p = new Circle();
+            p.SetPoint(30, 40, 50);
+            Console.WriteLine("Circle p:");
+            p.Print();
+        }
+    }
+    class Circle
+    {
+        private double x, y, r;
+        public void SetPoint(double a, double b, double c)
+        {
+            x = a;
+            y = b;
+            r = c;
+        }
+        public void Print()
+        {
+            Console.WriteLine("[" + x +"," + y +"]," + "Radius=" + r);
+        }
+    }
+}

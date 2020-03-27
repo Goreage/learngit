@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VSExample01
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //String s = Console.ReadLine();
+            //int x = Convert.ToInt32(s);
+            //s = Console.ReadLine();
+            //int y = Convert.ToInt32(s);
+            //int z = x + y;
+            //Console.WriteLine(z);
+
+            //在一行里面输入多个数据
+            string s2 = Console.ReadLine();
+            string[] ss2 = s2.Split(' ');
+            double[] a = new double[ss2.Length];
+            double sum = 0;
+            for(int i=0; i<ss2.Length; i++)
+            {
+                a[i] = Convert.ToDouble(ss2[i]);
+                sum = sum + a[i];
+            }
+            //Console.WriteLine(sum);
+
+            //带格式输出
+            Console.WriteLine("和是{0},平均数{1}", sum, sum / ss2.Length);
+        }
+    }
+}

@@ -1,0 +1,83 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ConolseApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            float a, b, c;
+            const double PI = 3.14159;
+            a = 98.2F;
+            decimal employeeSalary = 0.0m;
+
+            int[] num = new int[100];
+            int[] cc;
+            cc = new int[40];
+
+            a = 89.33F;
+            b = 45.7F;
+            c = 5.2F;
+            int y = 2;
+
+            float d = a + b + c;
+            c = y / 23;
+
+            bool k = a > b;
+            if(a+b>c && c > a)
+            {
+
+            }
+
+        }
+		
+		//结构的简单实例    
+        struct A
+        {
+            public int x;       //不能对其进行直接赋值
+            public int y;
+            public static string str = null;    //静态变量可以初始化
+            public A(int x, int y)      //带参数的构造函数
+            {
+                this.x = x;
+                this.y = y;
+                Console.WriteLine("x={0},y={1},str={2}", x, y, str);
+            }
+			
+			/anything is Object
+        static void Main(string[] args)
+        {
+            int i = 123;
+            object o = i;  //装箱    将值类型转换为Object对象
+            int j = (int)o; //拆箱   将Object强制转化为值类型
+
+            var a = 12; //两个类型表示是一样的 前一个为隐式表达法 系统自动匹配类型
+            int b = 12;
+        } 
+
+			struct Student
+        {
+            public int age;
+            public string name;
+        }
+
+        enum DayOFTime : long
+        {
+            //枚举的后面的值会依据开始值加1
+            Morning,
+            Noon,
+            Afternoon
+        }
+        static void Main(string[] args)
+        {
+            Student s1;
+            s1.age = 18;
+            Student[] st = new Student[100];
+            DayOFTime d1 = new DayOFTime();
+        }      
+    }
+}
