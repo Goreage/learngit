@@ -235,8 +235,7 @@ Index_comment:
 
     修改数据表
     添加单列
-    ALTER TABLE tbl_name ADD [COLUMN] col_name 
-    column_definitionp[FIRST | AFTER col_name]
+    ALTER TABLE tbl_name ADD [COLUMN] col_name column_definitionp[FIRST | AFTER col_name]
     ALTER TABLE users1 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 10;
     ALTER TABLE users1 ADD password VARCHAR(32) NOT NULL AFTER username;
      ALTER TABLE users1 ADD truename VARCHAR(20) NOT NULL FIRST;
@@ -568,4 +567,355 @@ mysql> SELECT * FROM users4;
 |  8 | Rose     | 202cb962ac59075b964b07152d234b70 |  10 |    0 |
 |  9 | Ben      | 456                              |  10 | NULL |
 +----+----------+----------------------------------+-----+------+
-    
+
+
+
+											<<<<<显示>>>>>
+/***************************************************************************************************************/
+										SHOW INDEXES FROM users2\G;
+										SHOW COLUMNS FROM users2;
+										SHOW CREATE TABLE users2;
+										
+											<<<<约束分类>>>>>>>  											
+/**********************************************************************************************/
+										PRIMARY KEY(主键约束)
+添加主键约束：
+    ALTER TABLE tb1_name ADD [CONSTAINT [symbol]]
+    PRIMARY KEY [index_type](index_col_name,...)
+    ALTER TABLE users2 ADD id smallint unsigned;
+删除主键约束：
+    ALTER TABLE tbl_name DROP PRIMARY KEY
+    ALTER TABLE users2 DROP PRIMARY KEY;
+										UNIQUE KEY(唯一约束)
+添加唯一约束
+    ALTER TABLE tbl_name ADD [CONSTRAINT [symbol]]
+    UNIQUE [INDEX|KEY] [index_name] [index_type]
+    (index_col_name,...)
+    ALTER TABLE users2 ADD age TINYINT UNSIGNED NOT NULL；
+删除唯一约束
+    ALTER TABLE tbl_name DROP {INDED|KEY} index_name
+	ALTER TABLE users2 DROP INDEX username;
+										DEFAULT(默认约束)
+添加外键约束
+    ALTER TABLE tbl_name ADD [CONSTRAINT [symbol]]
+    FOREIGN KEY [index_name] (index_col_name,...)
+    reference_defintion
+删除外键约束
+    ALTER TABLE tbl_name DROP FOREIGN KEY fk_symbol
+    SHOW CREATE TABLE users2;
+	ALTER TABLE users2 DROP FOREIGN KEY users2_ibfk_1;
+										NOT NULL(非空约束)
+添加/删除默认约束
+    ALTER TABLE tbl_name ALTER [COLUMN] col_name
+    {SET DEFAULT literal | DROP DEFAULT}
+
+     ALTER TABLE users2 ALTER age SET DEFAULT 15;
+										<<<<<约束>>>>>>>
+/*************************************************************************************************/
+				1.约束保证数据的完整性和一致性。
+				2.约束分为表级约束和列级约束。
+				3.约束类型包括：
+						NOT NULL(非空约束)
+						PRIMARY KEY(主键约束)
+						UNIQUE KEY(唯一约束)
+						DEFAULT(默认约束)
+						FORETGN KEY(外键约束)
+				FOREIGN KEY 
+					保持数据一致性，完整性。
+					实现一对一或一对多关系。
+				外键约束的要求
+				1.父表和子表必须使用相同的存储引擎，而且禁止使用临时表。
+				2.数据表的存储只能为InnoDB。	
+					外键约束：将同一张表格的元素联系起来
+					
+			3.外键列和参照列必须具有相似的数据类型。其中数字的长度或是否
+				外键约束的参照操作
+				1.CASCADE:从父表删除或更新且自动删除或更新子表中匹配的行
+				2.SET NULL：从父表删除或更新行，并设置子表中的外键列为NULL。如果使用该选项，必须保证子表列没有指定NOT NULL
+				3.RESTRICT:拒绝对父表的删除或更新操作。
+				4.NO ACTION:标准SQL的关键字，在MYSQL中与RESTRICT相同。
+			符号位必须相同；而字符的长度可以不同。
+				标记约束与列级约束
+				对一个数据列建立的约束，称为列级约束。
+				对多个数据列建立的约束，称为标记约束。
+				列级约束既可以在列定义时声明，也可以在列定以后声明、
+				表级约束只能在列定义后声明。
+
+/**************************************************************************************************/	
+	唯一索引：业务上来讲必须是唯一， 提升查询性能
+	索引：类似于字典中的偏旁部首，索引过多就会产生错误， 另外索引还必须维护
+	ALTER TABLE tb_wechat_auth unique index(open_id);//唯一索引
+	ALTER TABLE users2 DROP INDEX pid;// 删除索引pid
+	SHOW INDEXES FROM provinces;//查询索引
+    SHOW INDEXES FROM provinces\G; //将索引表格化
+  
+
+
+											<!------数据的增删改查--------->
+/******************************************************************************************************************/
+
+  
+													////////修改数据表\\\\\\\\\\\
+/*****************************************************************************************************************/
+       添加单列: ALTER TABLE tbl_name ADD [COLUMN] col_name column_definitionp[FIRST | AFTER col_name]
+				 ALTER TABLE users1 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 10;
+				 ALTER TABLE users1 ADD password VARCHAR(32) NOT NULL AFTER username;
+				 ALTER TABLE users1 ADD truename VARCHAR(20) NOT NULL FIRST;
+	   添加多列：ALTER TABLE tbl_name ADD [COLUMN] (col_name column_definition,...)
+         删除列：ALTER TABLE tbl_name DROP [COLUMN] col_name
+				 ALTER TABLE users1 DROP truename;
+				 ALTER TABLE users1 DROP password,DROP age;
+				 
+				 
+				 
+				 
+				 //////////////////////////////////////Number 7 查询数据\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+/******************************************************分组查询****************************************************/
+	创建分组：GROUP BY 关键字通常和集合函数一起使用，例如：MAX(), MIN(), COUNT(), SUM(), AVG().
+	Question:根据s_id 对 fruits表中数据进行分组，SQL语句如下：
+		SELECT s_id, COUNT(*) AS Total FROM fruits GROUP BY s_id;
+	使用GROUP_CONCAT()函数，将每一个分组中各个字段的值显示出来。
+		SELECT s_id,GROUP_CONCAT(f_name) AS Names FROM fruits GROUP BY s_id;
+	
+///****************************************************************************************************\\\\\\\\\\\\\\
+													/////子查询（比较查询）\\\\\\
+	子查询中常用的操作符有ANY(SOME) ALL  IN  EXISTS 
+	子查询可以加到SELECT UPDATE 和 DELETE 语句中	而且可以进行多层嵌套，子查询中也可以使用比较运算符，
+	如"<" , "<=", ">", ">=" 和 "!="
+	带ANY的子查询：查询tb1中num1中大于任意tb2中Num2的数，只要大于num2中任意一个数就满足查询结果
+		LECT num1 FROM tb1 WHERE num1 > ANY(SELECT num2 FROM tb2);
+	带ALL的子查询：使用ALL时需满足所有内层查询的条件
+		SELECT num1 FROM tb1 WHERE num1 > ALL(SELECT num2 FROM tb2);
+	带EXISTS关键词的查询：EXISTS关键字后面的参数是一个任意的子查询，系统对子查询进行运算以判断它是否返回行，
+	如果至少返回一行，则结果为true,此时外层查询语句将进行查询；如果子查询没有返回任何行，那么EXISTS返回false, 此时外层查询语句将不进行查询；
+		SELECT * FROM fruits WHERE EXISTS
+		-> (SELECT s_name FROM suppliers WHERE s_id = 107);
+	带EXISTS关键词和条件的查询：
+		 SELECT * FROM fruits
+    -> WHERE f_price > 10.20 AND EXISTS
+    -> (SELECT s_name FROM suppliers WHERE s_id = 107);
+	NOT EXISTS 和 EXISTS使用方法相同，返回结果相反
+	 SELECT * FROM fruits
+    -> WHERE NOT EXISTS
+    -> (SELECT s_name FROM suppliers WHERE s_id = 107);
+	带IN关键字的子查询
+		IN关键字进行子查询时，内层查询语句仅仅返回一个数据列，这个数据列的值将提供给外层查询语句进行比较操作
+	SELECT c_id FROM orders WHERE o_num IN
+    -> (SELECT o_num FROM orderitems WHERE f_id = 'c0');
+	相当于两句语句：
+		SELECT o_num FROM orderitems WHERE f_id = 'c0';
+		SELECT c_id FROM orders WHERE o_num(30003,30005);
+Tips:子查询的功能也可以通过连接查询完成，但是子查询获得MySQL代码更容易阅读和编写
+	
+													<<<<<<合并查询>>>>>>>>
+/****************************************************************************************************************/
+	合并查询的结果：利用UNION关键字，可以给出多条SELECT语句，并将它们的结果组合成单个结果集，各SELECT语句使用UNION或
+	UNION ALL 连接， UNION 不使用关键字ALL，执行时删除重复的记录。
+	question:求价格大于9.0，s_id 在（101,103）的所有水果的信息
+	
+	 SELECT s_id,f_name,f_price FROM fruits
+    -> WHERE f_price < 9.0
+    -> UNION ALL
+    -> SELECT s_id,f_name,f_price
+    -> FROM fruits
+    -> WHERE s_id IN(101,103);
+	可以将它拆分成两话：
+	 SELECT s_id,f_name,f_price FROM fruits
+    -> WHERE f_price < 9.0;
+	SELECT s_id,f_name,f_price
+    -> FROM fruits
+    -> WHERE s_id IN(101,103);
+	UNION 后面不使用ALL， 执行时删除重复的记录。	
+mysql> SELECT s_id,f_name,f_price FROM fruits
+    -> WHERE f_price < 9.0
+    -> UNION
+    -> SELECT s_id,f_name,f_price
+    -> FROM fruits
+    -> WHERE s_id IN(101,103);	
+													<<<<<<<<<为表和字段取别名>>>>>>>>>
+/******************************************************************************************************************/
+	为表取别名：当表名字很长或者执行一些特殊查询时，为了方便操作或者需要多次使用相同的表时，可以为表指定别名，用这个别名
+	代表原来的名称，为表取别名的基本语法格式为： 表名 [AS] 表别名
+	 SELECT * FROM orders AS o
+    -> WHERE o.o_num = 30001;
+	question：为costomers和orders表分别取别名，并进行连接查询，SQL语句
+	SELECT c.c_id,o.o_num
+    -> FROM costomers AS c LEFT OUTER JOIN orders AS o
+    -> ON c.c_id = o.c_id;
+	Question:在前面内连接查询时指出自连接是一种特殊的内连接，在连接查询中的内连接，在连接查询中的两个表都是同一表，
+	SELECT f1.f_id,f1.f_name
+    -> FROM fruits AS f1,fruits AS f2
+    -> WHERE f1.s_id = f2.s_id AND f2.f_id = 'a1';
+	
+	
+													<<<<<<<<<<<<正则表达式>>>>>>>>>>>
+/*******************************************************************************************************************/
+^	匹配文本的开始字符
+$	匹配文本的结束字符
+.	匹配任何单个字符
+*	匹配前面的字符1次或多次 可以以匹配任意多个字符 
+<字符串> 匹配包含指定的字符串的文本
+[字符集合] 匹配字符集中的任何一个字符
+[^]		匹配不在括号中的任何字符
+字符串{n,}	匹配前面的字符串至少n次
+字符串{n,m}	匹配前面至少n次,至多m次
+
+	关键字：REGEXP regexp  
+													
+													<<<<<连接查询>>>>>
+/***************************************************************************************************************/
+	内连接查询（INSERT JION）：使用比较运算符进行表间某些列数据的比较操作，并列出这些表中与连接条件相匹配的数据行，组合成新的记录，
+	也就是说，在内连接查询中只有满足条件的记录才能出现在结果关系中。
+内连接查询条件：两个表中都有相同的数据类型的字段，两个表通过相同字段建立联系
+标准写法：SELECT suppliers.s_id,s_name,s_city,s_call,f_name,f_price,f_id
+    -> FROM fruits INNER JOIN suppl
+    -> ON fruits.s_id=suppliers.s_id;
+	关键字（INNER JION .... ON）
+	
+常规写法：SELECT suppliers.s_id,s_name,s_city,s_call,f_name,f_price,f_id
+    -> FROM fruits,suppliers
+    -> WHERE fruits.s_id=suppliers.s_id;
+	关键字(WHERE)
+	
+	Tips:使用WHERE子句定义连接条件比较简单明了，而INNER JOIN语法是ANSI SQL标准规范。使用INNER JION 连接语法不会忘记连接条件，
+	而且。WHERE子句在某些时候会影响查询性能
+	
+	自连接查询	需求：/***查询供应f_id='a1'的水果供应商提供的其他水果种类，在一个表中找一个元素相同时对应的相关元素相同的部分。*//
+	SELECT f1.f_id,f1.f_name FROM fruits AS f1, fruits AS f2 WHERE f1.s_id = f2.s_id AND f2.s_id='a1';
+	定义：如果在一个连接查询中，涉及到的两个表都是同一个表，这种查询称为自连接查询，自连接是一种特殊的内连接，它是指相互连接的表在
+	物理上为同一张表，但可以在逻辑上分为两张表。
+
+外连接查询；查询多个表中的相关联的行，内连接时，返回查询结果集合中的仅是符合查询条件和连接条件的行，但有时候需要包含没有关联的行中数据，即
+返回查询结果集合中的不仅包含符合连接条件的行，而且还包含左表（左外连接或左连接），右表（右外连接或右连接）或两个边接表（全外连接）中所有的
+数据行。外连接分为：左外连接和右外连接
+		LEFT JOIN(左连接)：返回包括左表中的所有记录和右表中连接字段相等的记录。
+		RIGHT JOIN(右连接)：返回包含右表中的所有记录和右表中连接字段相等的记录。
+1.LEFT JOIN左连接
+	SELECT costomers.c_id,orders.o_num
+	FROM costomers LEFT OUTER JOIN orders
+	ON costomers.c_id = orders.c_id;
+2.RIGHT JOIN右连接
+	右连接是左连接的反向连接，将返回右表的所有行，如果右表的某行在左表中没有匹配行，左表将返回空值。
+	SELECT costomers.c_id, orders.o_num
+	FROM costomers RIGHT OUTER JOIN orders
+	ON costomers.c_id = orders.c_id;
+
+	可以加复合语句组成	符合查询*****
+ SELECT suppliers.s_id,s_name,f_price
+    -> FROM fruits INNER JOIN suppliers
+    -> ON fruits.s_id = suppliers.s_id
+    -> ORDER BY fruits.s_id;
+
+problem									///////********解决MySQL中文乱码问题**********\\\\\\\\\\\
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	显示命令：		show variable like 'char%';
+	修改字符集：	set character_set_results=gb2312;
+
+	
+	
+	
+/***********************************************************************************************************/
+	 mysql -uroot -p -P3306 -h127.0.0.1  进入
+	USE test; //进入test表中
+	 CREATE TABLE provinces(
+		-> id SMALLINT UNSIGNED PRIMARY KEY AUTO_INCREMENT
+		-> ,
+		-> pname VARCHAR(20) NOT NULL
+		-> );       //写一张表
+	 SHOW CREATE TABLE provinces;   //展示这张表属性
+	  SHOW INDEXES FROM provinces;  //展示这张表的外键 索引等标志
+	SHOW INDEXES FROM provinces\G;  //格式化展示这张表的外键 索引等标志
+	INSERT provinces(paname) VALUES('A');   //往表中插入数据
+
+	 INSERT users1(username, pid) VALUES('Jhon',9); //往表中插入数据
+	 DELETE FROM provinces WHERE id = 3;    //删除表中数据
+	  SHOW COLUMNS FROM users1;     //查看表中各个列的属性
+	  SELECT * FROM provinces;        //显示表中的内容
+	   ALTER TABLE users1 ADD age TINYINT UNSIGNED NOT NULL DEFAULT 10;    //添加表中列的元素
+		ALTER TABLE users1 ADD truename VARCHAR(20) NOT NULL FIRST; //添加表中列的元素在开头
+		ALTER TABLE users1 ADD passward VARCHAR(32) NOT NULL AFTER username;
+
+		 ALTER TABLE users1 DROP truename;      //删除表中列的元素
+		  ALTER TABLE users1 DROP passward, DROP age;
+
+	UPDATE user set age = age + 5;      //更新表中age大小
+	UPDATE user SET age = age + 10 WHERE id % 2 = 0; //更改表中id为偶数的age
+
+	 SELECT VERSION();
+	  SELECT NOW();
+	 SELECT 3 + 5;
+	  SELECT id,username FROM user;  //查询user中的 id username 
+	 SELECT id AS userId,username As uname FROM user;  //关键词AS 将什么作为 不会修改 只在查询时使用
+
+	SELECT sex FROM user GROUP BY sex; //条件查询
+	 SELECT sex FROM user GROUP BY 1 HAVING count(id) >= 2;
+	  SELECT * FROM user;
+	  SELECT * FROM user ORDER BY id DESC;    //降序查询 ORDER BY 顺序 DESC降序 默认升序
+	  SELECT * FROM user ORDER BY age;        //按age升序查询
+	   SELECT * FROM user LIMIT 2;            //LIMIT从1开始取2条
+	 SELECT * FROM user LIMIT 2,2;      //从2开始取2条 id = 3 , 4
+	 SET NAMES gbk;      //修改编码使之中文格式
+
+	  SELECT AVG(goods_price) FROM tdb_goods;    //求价格的平均值
+	  SELECT ROUND(AVG(goods_price),2) FROM tdb_goods;    //对价格的平均值取小数点后两位
+	  SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price >= 5391.30;     //显示表中大于价格平均数的goods_id,goods_name,goods_price
+	  SELECT goods_id,goods_name,goods_price FROM tdb_goods WHERE goods_price >= (SELECT ROUND(AVG(goods_price),2) FROM tdb_goods);  //子查询显示表中大于价格平均数的goods_id,goods_name,goods_price
+
+	   SELECT goods_price FROM tdb_goods WHERE goods_cate='超级本';  
+	   SELECT goods_id, goods_name, goods_price FROM tdb_goods WHERE goods_cate = '超级本';
+		SELECT * FROM tdb_goods WHERE goods_cate='超级本';      //显示表中类别是超级本
+		 SELECT * FROM tdb_goods WHERE goods_cate='超级本'\G;
+	   SHOW TABLES;   //显示数据库下的列表
+	 ALTER TABLE tdb_goods //修改表的属性
+		-> CHANGE goods_cate cate_id SMALLINT UNSIGNED NOT NULL,    
+		-> CHANGE brand_name brand_id SMALLINT UNSIGNED NOT NULL;
+	//更新两个表中的数据 AS 为 别名 用于区别两个表中相同的列元素
+	 UPDATE tdb_goods AS g INNER JOIN tdb_goods_brands AS b ON g.brand_name = b.brand_name
+		-> SET g.brand_name = b.brand_id;
+	//查找一个表中的brand_name
+	 SELECT brand_name FROM tdb_goods\G;
+
+	 //外连接（左 右）与内连接
+	 INNER JOIN 内连接  JOIN CROSS JION 和 INNER JOIN 是等价的
+	 内连接:仅查询符合条件的
+	 LEFE JOIN 左外连接
+	 RIGHT JOIN 右外连接
+	 使用ON关键字来设定链接条件   WHERE 用作过滤条件
+
+	 SELECT goods_id, goods_name, cate_name FROM tdb_goods INNER JOIN
+	tdb_goods_cates ON tdb_goods.cate_id = tdb_goods_cates.cate_id;     //查询cate_id 
+
+	 SELECT goods_id, goods_name, cate_name FROM tdb_goods RIGHT JOIN
+	tdb_goods_cates ON tdb_goods.cate_id = tdb_goods_cates.cate_id;
+
+	SELECT goods_id, goods_name, cate_name, brand_name, goods_price
+	FROM tdb_goods AS g 
+	INNER JOIN tdb_goods_cates AS c ON g.cate_id = c.cate_id
+	INNER JOIN tdb_goods_brands AS b ON g.brand_id = b.brand_id; //多表连接
+
+	A LEFT JOIN B join_condition
+	数据表B的结果集依赖数据表A
+	数据表A的结果集根据左连接条件依赖所有数据表（B表除外）
+	左外连接条件决定如何检索数据表B（在没有指定WHERE条件的情况下）
+	如果数据表A的某条记录符合WHERE条件，但是在数据表B不存在符合连接条件的记录
+	将生成一个所有列为空的额外的B行
+	//GROUP BY 对数据分组
+	//ORDER BY 对数据排序
+	SELECT goods_id,goods_name FROM tdb_goods GROUP BY goods_name; 
+
+	 SELECT goods_id,goods_name FROM tdb_goods GROUP BY goods_name HAVING count(goods_name) >= 2;
+
+	//通过自己的存在的表调用自己的表将goods_name大于等于 2 的数据删除 通过子查询
+	 DELETE t1 FROM tdb_goods AS t1 LEFT JOIN 
+	 (SELECT goods_id, goods_name FROM tdb_goods GROUP BY goods_name  
+	 HAVING count(goods_name) >= 2) AS t2 ON 
+	 t1.goods_name  = t2.goods_name WHERE t1.goods_id > t2.goods_id;
+
+	//左表分组
+	  SELECT p.type_id, p.type_name, s.type_name FROM tdb_goods_types p
+		-> LEFT JOIN tdb_goods_types AS s ON s.parent_id = p.type_id;
+
+	%表示任意个字符
+	_表示任意一个字符
+	SELECT DATE_ADD('2014-1-2',INTERVAL 5 WEEK);
+	SELECT DATE_FORMAT('2014-1-5','%m/%d/%Y');

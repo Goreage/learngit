@@ -1,0 +1,27 @@
+#include "acllib.h"
+#include<stdio.h>
+int Setup()
+{
+	//使用scanf 和 printf是必须用initConsole 
+	//initConsole();
+	//printf("输入宽度：\n");
+	int width = 200;
+	//scanf("%d",&width);
+	//初始化窗口 
+	initWindow("test",100,100,width,width);
+	//画图用到的beginPaint(); 和 endPaint(); 
+	beginPaint();
+	setPenColor(BLUE);
+	setPenWidth(1);
+	setPenStyle(PEN_STYLE_DASHDOTDOT);
+	line(20,20,width-20,width-20);
+	putPixel(100,150,GREEN);
+	endPaint();
+	//点 void putPixel(int x,int y,Acl_Color color);
+	//ACL_Color getPixel(int x, int y);
+	
+	//颜色   RGB(r,g,b)
+	//红色--> RGB(255,0,0)
+	//BLACK RED, GREEN CYAN MAGENTA YELLOW, WHITE 
+	return 0;
+ } 
