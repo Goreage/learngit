@@ -1,0 +1,17 @@
+	开发文档
+	regiest.jsp 用户注册页面
+	show.jsp 显示是否注册成功页面 			View层
+	
+	JavaBean
+	HandleRegister.java			控制器Servlet	Controller 
+
+	
+	Register.java		存储数据  Model 层
+	
+	
+	
+	login.jsp 输入视图JSP ————————————————> 提交处理数据   （创建bean对象） 控制器Servlet  HandleLogin.java       ____------>连接数据库
+	
+	
+	控制器Servlet  HandleLogin.java  存储数据用setXXX 在Model层 模型JavaBean Login.java
+	---->请求显示数据getProperty   显示数据视图showSuccess.jsp
